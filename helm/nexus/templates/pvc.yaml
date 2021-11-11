@@ -6,9 +6,9 @@ metadata:
     {{- include "nexus.labels" . | nindent 4 }}
 spec:
   accessModes:
-    - ReadWriteOnce
-  volumeMode: Filesystem
+  - ReadWriteOnce
+  storageClassName: ""
+  volumeName: pv-nexus
   resources:
     requests:
-      storage: 10Gi
-
+      storage: 5Gi
