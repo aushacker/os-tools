@@ -1,3 +1,7 @@
+#
+# Dump Pod environment variables.
+# Useful for learning about injected values like Services.
+#
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -6,7 +10,7 @@ spec:
   template:
     spec:
       containers:
-      - name: hello-world
+      - name: print-env
         image: quay.io/prometheus/busybox
         command:
         - /bin/sh
