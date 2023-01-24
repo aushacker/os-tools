@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: webhook
-          image: quay.io/sdavies/webhook
+          image: quay.io/sdavies/webhook:1.0
           ports:
             - name: http
               protocol: TCP
