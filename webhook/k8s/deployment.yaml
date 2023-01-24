@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook
+spec:
+  selector:
+    matchLabels:
+      app: webhook
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webhook
+    spec:
+      containers:
+        - name: webhook
+          image: quay.io/sdavies/webhook
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
