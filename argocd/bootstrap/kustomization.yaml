@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - secret-repo-aushacker.yaml
   - application-argo-config.yaml
+  - application-apps.yaml
