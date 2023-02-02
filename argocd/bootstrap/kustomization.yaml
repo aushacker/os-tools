@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - secret-repo-aushacker.yaml
+  - repository.yaml
   - application-argo-config.yaml
+  - application-operators.yaml
   - application-apps.yaml
