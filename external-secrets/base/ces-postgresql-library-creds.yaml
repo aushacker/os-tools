@@ -1,0 +1,26 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: postgresql-library-creds
+spec:
+  externalSecretSpec:
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: replaceMe
+    data:
+      - remoteRef:
+          key: pgLibraryUser
+        secretKey: username
+      - remoteRef:
+          key: pgLibraryPassword
+        secretKey: password
+    target:
+      name: patchMe
+      template:
+        engineVersion: v2
+        type: kubernetes.io/basic-auth
+    refreshInterval: 1h
+  namespaceSelector:
+    matchLabels:
+      environment: dev
+  refreshTime: 1m

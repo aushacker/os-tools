@@ -1,0 +1,44 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: external-secrets-dev
+nameSuffix: -dev
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: ClusterExternalSecret
+    patch: |-
+      - op: replace
+        path: /spec/externalSecretSpec/target/name
+        value: postgresql-library-dev
+
+replacements:
+  - source:
+      kind: Secret
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: ClusterSecretStore
+        fieldPaths:
+          - spec.provider.azurekv.authSecretRef.clientId.name
+          - spec.provider.azurekv.authSecretRef.clientSecret.name
+  - source:
+      kind: Secret
+      fieldPath: metadata.namespace
+    targets:
+      - select:
+          kind: ClusterSecretStore
+        fieldPaths:
+          - spec.provider.azurekv.authSecretRef.clientId.namespace
+          - spec.provider.azurekv.authSecretRef.clientSecret.namespace
+  - source:
+      kind: ClusterSecretStore
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: ClusterExternalSecret
+        fieldPaths:
+          - spec.externalSecretSpec.secretStoreRef.name

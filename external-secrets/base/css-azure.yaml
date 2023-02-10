@@ -1,0 +1,20 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: azure-vault
+spec:
+  provider:
+    azurekv:
+      environmentType: PublicCloud
+      authType: ServicePrincipal
+      authSecretRef:
+        clientId:
+          key: appId
+          name: replaceMe
+          namespace: replaceMe
+        clientSecret:
+          key: password
+          name: replaceMe
+          namespace: replaceMe
+      tenantId: manual-TENANT_ID
+      vaultUrl: manual-VAULT_URL
