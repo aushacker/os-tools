@@ -1,16 +1,13 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterExternalSecret
 metadata:
-  name: postgresql-library-creds
+  name: azure-key-example
 spec:
   externalSecretSpec:
     data:
       - remoteRef:
-          key: pgLibraryUser
-        secretKey: username
-      - remoteRef:
-          key: pgLibraryPassword
-        secretKey: password
+          key: key/Key01
+        secretKey: key
     refreshInterval: 1h
     secretStoreRef:
       kind: ClusterSecretStore
@@ -18,8 +15,10 @@ spec:
     target:
       name: patchMe
       template:
+        data:
+          public: '{{ .key | jwkPublicKeyPem }}'
         engineVersion: v2
-        type: kubernetes.io/basic-auth
+        type: Opaque      
   namespaceSelector:
     matchLabels:
       environment: dev

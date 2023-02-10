@@ -6,4 +6,4 @@ resources:
   - secret-azure-vault.yaml
   - css-azure.yaml
   - ces-postgresql-library-creds.yaml
-  
+  - ces-key-example.yaml

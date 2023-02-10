@@ -10,10 +10,18 @@ resources:
 patches:
   - target:
       kind: ClusterExternalSecret
+      name: postgresql-library-creds
     patch: |-
       - op: replace
         path: /spec/externalSecretSpec/target/name
         value: postgresql-library-dev
+  - target:
+      kind: ClusterExternalSecret
+      name: azure-key-example
+    patch: |-
+      - op: replace
+        path: /spec/externalSecretSpec/target/name
+        value: azure-key-example-dev
 
 replacements:
   - source:
