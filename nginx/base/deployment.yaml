@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginxinc/nginx-unprivileged
+          image: nginx
+          imagePullPolicy: Always
           ports:
             - name: http
               protocol: TCP
