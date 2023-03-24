@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginxinc/nginx-unprivileged
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
+          volumeMounts:
+            - name: static-content
+              mountPath: "/usr/share/nginx/html"
+              readOnly: true
+          securityContext:
+            allowPrivilegeEscalation: false
+      volumes:
+      - name: static-content
+        configMap:
+          name: static-content
