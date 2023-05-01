@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - service-account.yaml
+#  - role-binding.yaml
+
+images:
+- name: nginx
+  newName: nginx
+  newTag: stable
+
+patches:
+- path: patch-deployment-ports.yaml
+- path: patch-deployment-security.yaml
