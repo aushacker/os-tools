@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-db
+  labels:
+    app.kubernetes.io/name: my-db
+    app.kubernetes.io/component: database
+    app.openshift.io/runtime: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: my-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-db
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: my-db
+          image: registry.access.redhat.com/ubi9/ubi-micro
+          command: ['sh', '-c', 'while true; do echo "tick" && sleep 60; done']
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
