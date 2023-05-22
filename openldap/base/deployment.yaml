@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openldap
+spec:
+  selector:
+    matchLabels:
+      app: openldap
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: openldap
+    spec:
+      containers:
+        - name: openldap
+          image: openldap
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+          ports:
+            - name: ldap
+              containerPort: 1389
+            - name: ldaps
+              containerPort: 1636
