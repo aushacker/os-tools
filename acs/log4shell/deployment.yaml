@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnerable-log4shell
+  annotations:
+    #admission.stackrox.io/break-glass: ABC-123
+spec:
+  selector:
+    matchLabels:
+      app: vulnerable-log4shell
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vulnerable-log4shell
+    spec:
+      containers:
+        - name: vulnerable-log4shell
+          image: quay.io/smileyfritz/log4shell-app:v0.5
+          ports:
+            - containerPort: 8080
+              protocol: TCP
