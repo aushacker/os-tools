@@ -1,0 +1,19 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nfs-provisioner
+spec:
+  template:
+    spec:
+      containers:
+        - name: nfs-provisioner
+          env:
+            - name: NFS_SERVER
+              value: 192.168.22.1
+            - name: NFS_PATH
+              value: /shares/dynamic
+      volumes:
+       - name: nfs-volume
+         nfs:
+           server: 192.168.22.1
+           path: /shares/dynamic
