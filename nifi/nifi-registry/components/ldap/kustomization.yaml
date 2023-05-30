@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+configMapGenerator:
+  - name: ldap-config
+    literals:
+      - AUTH=ldap
+      - INITIAL_ADMIN_IDENTITY='cn=admin,dc=example,dc=org'
+      - LDAP_AUTHENTICATION_STRATEGY='SIMPLE'
+      - LDAP_MANAGER_DN='cn=admin,dc=example,dc=org'
+      - LDAP_MANAGER_PASSWORD='adminpassword'
+      - LDAP_USER_SEARCH_BASE='dc=users,dc=example,dc=org'
+      - LDAP_USER_SEARCH_FILTER='cn={0}'
+      - LDAP_IDENTITY_STRATEGY='USE_DN'
+      - LDAP_URL='ldap://openldap-openldap.svc.cluster.local:389'
+
+patchesStrategicMerge:
+  - statefulset-env.yaml

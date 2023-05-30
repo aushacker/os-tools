@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nifi-registry
+  labels:
+    app.kubernetes.io/name: nifi-registry
+    app.kubernetes.io/component: backend
+    app.openshift.io/runtime: openjdk
+spec:
+  serviceName: nifi-registry
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nifi-registry
+  template:
+    metadata:
+      labels:
+        app: nifi-registry
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: nifi-registry
+          image: nifi-registry
+          ports:
+            - name: http
+              containerPort: 18080
+            - name: https
+              containerPort: 18443
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 1024Mi
+          startupProbe:
+            httpGet:
+              path: /nifi-registry
+              port: http
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /nifi-registry
+              port: http
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /nifi-registry
+              port: http
+            periodSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: nifi-registry-data
+              mountPath: /opt/nifi-registry/nifi-registry-current/database
+              subPath: database
+            - name: nifi-registry-data
+              mountPath: /opt/nifi-registry/nifi-registry-current/flow_storage
+              subPath: flow_storage
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+      serviceAccountName: nifi-registry
+  volumeClaimTemplates:
+    - metadata:
+        name: nifi-registry-data
+      spec:
+        accessModes:
+          - ReadWriteMany
+        storageClassName: nfs
+        resources:
+          requests:
+            storage: 1Gi

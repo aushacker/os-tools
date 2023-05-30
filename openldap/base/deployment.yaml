@@ -16,10 +16,18 @@ spec:
         - name: openldap
           image: openldap
           imagePullPolicy: Always
-          securityContext:
-            allowPrivilegeEscalation: false
           ports:
             - name: ldap
               containerPort: 1389
             - name: ldaps
               containerPort: 1636
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true

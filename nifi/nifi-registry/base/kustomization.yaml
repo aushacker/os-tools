@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app: nifi-registry
+
+resources:
+  - namespace.yaml
+  - crb-nonroot.yaml
+  - serviceaccount.yaml
+  - statefulset.yaml
+
+images:
+  - name: nifi-registry
+    newName: docker.io/apache/nifi-registry
