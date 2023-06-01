@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: openldap
+spec:
+  template:
+    spec:
+      containers:
+        - name: openldap
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: yes
+            - name: LDAP_ENABLE_TLS
+              value: yes
+            - name: LDAP_TLS_CERT_FILE
+              value: /opt/bitnami/openldap/certs/tls.crt
+            - name: LDAP_TLS_KEY_FILE
+              value: /opt/bitnami/openldap/certs/tls.key
+            - name: LDAP_TLS_CA_FILE
+              value: /opt/bitnami/openldap/certs/service-ca.crt
+          volumeMounts:
+            - name: certs
+              mountPath: /opt/bitnami/openldap/certs/tls.crt
+              subPath: tls.crt
+            - name: certs
+              mountPath: /opt/bitnami/openldap/certs/tls.key
+              subPath: tls.key
+            - name: ca
+              mountPath: /opt/bitnami/openldap/certs/service-ca.crt
+              subPath: service-ca.crt
+      volumes:
+        - name: certs
+          secret:
+            secretName: openldap-serving-cert
+        - name: ca
+          configMap:
+            name: openshift-service-ca.crt
