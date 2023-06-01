@@ -1,0 +1,21 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: ubi8-base
+  annotations:
+    openshift.io/display-name: UBI8 base image
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: '8.8'
+      annotations:
+        version: '8.8'
+      from:
+        kind: DockerImage
+        name: 'registry.access.redhat.com/ubi8/ubi:8.8'
+      importPolicy:
+        importMode: Legacy
+        scheduled: true
+      referencePolicy:
+        type: Local

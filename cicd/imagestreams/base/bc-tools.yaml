@@ -1,0 +1,26 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: tools
+spec:
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'ubi8-base:8.8'
+  triggers:
+    - type: ImageChange
+  source:
+    type: Dockerfile
+    dockerfile: |
+      FROM registry.access.redhat.com/ubi8/ubi
+
+      RUN dnf upgrade -y && \
+          dnf install -y --setopt=tsflags=nodocs iputils --exclude container-selinux && \
+          dnf clean all
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'tools:1.0'
+  runPolicy: Serial
