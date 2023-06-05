@@ -1,9 +1,8 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: openldap
 spec:
-  serviceName: openldap
   selector:
     matchLabels:
       app: openldap
@@ -35,14 +34,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /bitnami/openldap
-      terminationGracePeriodSeconds: 10
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        storageClassName: nfs
-        resources:
-          requests:
-            storage: 1Gi
+      volumes:
+        - name: data
+          emptyDir: {}

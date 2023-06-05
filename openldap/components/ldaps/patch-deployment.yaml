@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: openldap
 spec:
@@ -17,7 +17,7 @@ spec:
             - name: LDAP_TLS_KEY_FILE
               value: /opt/bitnami/openldap/certs/tls.key
             - name: LDAP_TLS_CA_FILE
-              value: /opt/bitnami/openldap/certs/service-ca.crt
+              value: /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
           volumeMounts:
             - name: certs
               mountPath: /opt/bitnami/openldap/certs/tls.crt
@@ -25,13 +25,8 @@ spec:
             - name: certs
               mountPath: /opt/bitnami/openldap/certs/tls.key
               subPath: tls.key
-            - name: ca
-              mountPath: /opt/bitnami/openldap/certs/service-ca.crt
-              subPath: service-ca.crt
       volumes:
         - name: certs
           secret:
             secretName: openldap-serving-cert
-        - name: ca
-          configMap:
-            name: openshift-service-ca.crt
+            defaultMode: 440
