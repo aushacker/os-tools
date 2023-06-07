@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: nifi
+  labels:
+    app: nifi
+spec:
+  host: nifi-nifi.apps.lab.ocp.lan
+  to:
+    kind: Service
+    name: nifi
+    weight: 100
+  port:
+    targetPort: https
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None

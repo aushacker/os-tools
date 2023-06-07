@@ -1,0 +1,125 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nifi
+  labels:
+    app.kubernetes.io/name: nifi
+    app.kubernetes.io/component: frontend
+    app.openshift.io/runtime: openjdk
+spec:
+  serviceName: nifi
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nifi
+  template:
+    metadata:
+      labels:
+        app: nifi
+    spec:
+      containers:
+        - name: nifi
+          image: nifi
+          ports:
+            - name: https
+              containerPort: 8443
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+          env:
+            - name: NIFI_WEB_PROXY_HOST
+              value: nifi-nifi.apps.lab.ocp.lan,nifi-nifi.apps.lab.ocp.lan:8443,nifi.nifi.svc:8443,nifi.nifi.svc.cluster.local:8443
+            - name: KEYSTORE_PATH
+              value: /opt/certs/keystore.p12
+            - name: KEYSTORE_TYPE
+              value: PKCS12
+            - name: KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keystore
+                  key: password
+            - name: TRUSTSTORE_PATH
+              value: /opt/certs/truststore.p12
+            - name: TRUSTSTORE_TYPE
+              value: PKCS12
+            - name: TRUSTSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keystore
+                  key: password
+            #- name: LDAP_TLS_KEYSTORE
+            #  value: /opt/certs/keystore.p12
+            #- name: LDAP_TLS_KEYSTORE_TYPE
+            #  value: PKCS12
+            #- name: LDAP_TLS_KEYSTORE_PASSWORD
+            #  valueFrom:
+            #    secretKeyRef:
+            #      name: keystore
+            #      key: password
+            #- name: LDAP_TLS_TRUSTSTORE
+            #  value: /opt/certs/truststore.jks
+            #- name: LDAP_TLS_TRUSTSTORE_TYPE
+            #  value: PKCS12
+            #- name: LDAP_TLS_TRUSTSTORE_PASSWORD
+            #  valueFrom:
+            #    secretKeyRef:
+            #      name: keystore
+            #      key: password
+          envFrom:
+            - configMapRef:
+                name: ldap-config
+          #startupProbe:
+          #  httpGet:
+          #    path: /nifi-registry/
+          #    port: http
+          #  periodSeconds: 10
+          #  failureThreshold: 30
+          #readinessProbe:
+          #  httpGet:
+          #    path: /nifi-registry/
+          #    port: http
+          #  periodSeconds: 5
+          #  failureThreshold: 3
+          #livenessProbe:
+          #  httpGet:
+          #    path: /nifi-registry/
+          #    port: http
+          #  periodSeconds: 5
+          #  failureThreshold: 3
+          volumeMounts:
+            - name: nifi-certs
+              mountPath: /opt/certs/keystore.p12
+              subPath: keystore.p12
+            - name: nifi-certs
+              mountPath: /opt/certs/truststore.p12
+              subPath: truststore.p12
+          #  - name: data
+          #    mountPath: /opt/nifi-registry/nifi-registry-current/database
+              #subPath: database
+            #- name: nifi-registry-data
+            #  mountPath: /opt/nifi-registry/nifi-registry-current/flow_storage
+            #  subPath: flow_storage
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+      serviceAccountName: nifi
+      volumes:
+        - name: nifi-certs
+          secret:
+            secretName: nifi-tls
+  #volumeClaimTemplates:
+  #  - metadata:
+  #    name: nifi-registry-data
+  #    spec:
+  #      accessModes:
+  #        - ReadWriteMany
+  #      storageClassName: nfs
+  #      resources:
+  #        requests:
+  #          storage: 1Gi

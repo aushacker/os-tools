@@ -1,0 +1,45 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: nifi
+
+commonLabels:
+  app: nifi
+
+resources:
+  - namespace.yaml
+  - certificate-ca.yaml
+  - certificate-nifi.yaml
+  - issuer.yaml
+  - rb-nonroot.yaml
+  - route.yaml
+  - secret-keystore.yaml
+  - service-nifi.yaml
+  - serviceaccount.yaml
+  - statefulset-nifi.yaml
+
+images:
+  - name: nifi
+    newName: docker.io/apache/nifi
+    newTag: '1.21.0'
+  - name: nifi-registry
+    newName: docker.io/apache/nifi-registry
+  - name: rh-sso
+    newName: registry.redhat.io/rh-sso-7/sso76-openshift-rhel8
+    newTag: '7.6'
+
+configMapGenerator:
+  - name: ldap-config
+    options:
+      disableNameSuffixHash: true
+    literals:
+      - AUTH=ldap
+      #- INITIAL_ADMIN_IDENTITY='cn=admin,dc=example,dc=org'
+      - INITIAL_ADMIN_IDENTITY=user01
+      - LDAP_AUTHENTICATION_STRATEGY='SIMPLE'
+      - LDAP_MANAGER_DN='cn=admin,dc=example,dc=org'
+      - LDAP_MANAGER_PASSWORD='adminpassword'
+      - LDAP_USER_SEARCH_BASE='ou=users,dc=example,dc=org'
+      - LDAP_USER_SEARCH_FILTER='cn={0}'
+      - LDAP_IDENTITY_STRATEGY='USE_USERNAME'
+      - LDAP_URL='ldap://openldap.openldap.svc.cluster.local:389'
