@@ -3,16 +3,26 @@ kind: Component
 
 configMapGenerator:
   - name: ldap-config
+    options:
+      disableNameSuffixHash: true
     literals:
       - AUTH=ldap
-      - INITIAL_ADMIN_IDENTITY='cn=admin,dc=example,dc=org'
+      #- INITIAL_ADMIN_IDENTITY='cn=admin,dc=example,dc=org'
+      - INITIAL_ADMIN_IDENTITY=user01
       - LDAP_AUTHENTICATION_STRATEGY='SIMPLE'
       - LDAP_MANAGER_DN='cn=admin,dc=example,dc=org'
       - LDAP_MANAGER_PASSWORD='adminpassword'
-      - LDAP_USER_SEARCH_BASE='dc=users,dc=example,dc=org'
+      - LDAP_USER_SEARCH_BASE='ou=users,dc=example,dc=org'
       - LDAP_USER_SEARCH_FILTER='cn={0}'
-      - LDAP_IDENTITY_STRATEGY='USE_DN'
-      - LDAP_URL='ldap://openldap-openldap.svc.cluster.local:389'
+      - LDAP_IDENTITY_STRATEGY='USE_USERNAME'
+      - LDAP_URL='ldaps://openldap.openldap.svc.cluster.local:636'
 
 patchesStrategicMerge:
-  - statefulset-env.yaml
+  - route-tls.yaml
+  - statefulset-keystore.yaml
+
+resources:
+  - certificate-ca.yaml
+  - certificate-registry.yaml
+  - issuer.yaml
+  - secret-keystore.yaml

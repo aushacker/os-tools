@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nifi-registry
+spec:
+  template:
+    spec:
+      containers:
+        - name: nifi-registry
+          volumeMounts:
+            - name: debug-config
+              mountPath: /opt/nifi-registry/nifi-registry-current/conf/bootstrap.conf
+              subPath: bootstrap.conf
+      volumes:
+        - name: debug-config
+          configMap:
+            name: debug-config

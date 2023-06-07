@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: nifi-registry
+  labels:
+    app: nifi-registry
+spec:
+  host: nifi-registry.nifi.apps.lab.ocp.lan
+  to:
+    kind: Service
+    name: nifi-registry
+    weight: 100
+  port:
+    targetPort: http
+  wildcardPolicy: None

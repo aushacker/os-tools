@@ -17,37 +17,34 @@ spec:
       labels:
         app: nifi-registry
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
         - name: nifi-registry
           image: nifi-registry
           ports:
             - name: http
               containerPort: 18080
-            - name: https
-              containerPort: 18443
           resources:
             requests:
-              cpu: 100m
-              memory: 256Mi
+              cpu: 200m
+              memory: 1024Mi
             limits:
               cpu: 200m
               memory: 1024Mi
           startupProbe:
             httpGet:
-              path: /nifi-registry
+              path: /nifi-registry/
               port: http
             periodSeconds: 10
             failureThreshold: 30
           readinessProbe:
             httpGet:
-              path: /nifi-registry
+              path: /nifi-registry/
               port: http
             periodSeconds: 5
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /nifi-registry
+              path: /nifi-registry/
               port: http
             periodSeconds: 5
             failureThreshold: 3
@@ -64,6 +61,7 @@ spec:
         runAsNonRoot: true
         fsGroup: 1000
       serviceAccountName: nifi-registry
+      terminationGracePeriodSeconds: 10
   volumeClaimTemplates:
     - metadata:
         name: nifi-registry-data

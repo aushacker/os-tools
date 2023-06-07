@@ -1,10 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: nifi
-
 resources:
   - ../../base
 
 components:
   - ../../components/ldap
+  - ../../components/debug
+
+images:
+  - name: rh-sso
+    newName: registry.redhat.io/rh-sso-7/sso76-openshift-rhel8:7.6
