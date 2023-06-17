@@ -1,0 +1,8 @@
+FROM registry.access.redhat.com/ubi8-minimal:latest
+
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chgrp root /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]
