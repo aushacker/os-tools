@@ -2,7 +2,8 @@ FROM registry.access.redhat.com/ubi8-minimal:latest
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chgrp root /entrypoint.sh && \
+RUN microdnf update && \
+    microdnf install procps-ng && \
     chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh"]
