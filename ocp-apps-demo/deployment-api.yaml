@@ -4,7 +4,11 @@ metadata:
   name: my-api
   labels:
     app.kubernetes.io/name: my-api
-    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: my-api
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: ocp-apps-demo
     app.openshift.io/runtime: nodejs
   annotations:
     app.openshift.io/connects-to: my-db
@@ -27,6 +31,10 @@ spec:
           image: registry.access.redhat.com/ubi9/ubi-micro
           command: ['sh', '-c', 'while true; do echo "tick" && sleep 60; done']
           imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

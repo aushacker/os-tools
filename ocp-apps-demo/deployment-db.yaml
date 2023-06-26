@@ -4,7 +4,11 @@ metadata:
   name: my-db
   labels:
     app.kubernetes.io/name: my-db
+    app.kubernetes.io/instance: my-db
+    app.kubernetes.io/version: '7.2.1'
+    app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: ocp-apps-demo
     app.openshift.io/runtime: mariadb
 spec:
   selector:

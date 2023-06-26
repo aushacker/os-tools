@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - deployment-db.yaml
   - deployment-api.yaml
+  - service.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: ocp-apps-demo
