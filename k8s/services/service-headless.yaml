@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-headless
+spec:
+  selector:
+    app: nginx
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+
