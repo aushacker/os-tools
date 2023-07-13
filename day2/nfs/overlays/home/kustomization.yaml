@@ -6,5 +6,6 @@ namespace: nfs-provisioner
 resources:
   - ../../base
 
-patchesStrategicMerge:
-  - patch-deployment.yaml
+patches:
+  - path: patch-deployment.yaml
+  - path: patch-storage-class.yaml
