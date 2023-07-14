@@ -3,8 +3,9 @@ kind: OperatorGroup
 metadata:
   annotations:
     olm.providedAPIs: LocalVolume.v1.local.storage.openshift.io,LocalVolumeDiscovery.v1alpha1.local.storage.openshift.io,LocalVolumeDiscoveryResult.v1alpha1.local.storage.openshift.io,LocalVolumeSet.v1alpha1.local.storage.openshift.io
-  name: openshift-local-storage
-  namespace: KUSTOMIZE_ME
+  generateName: openshift-local-storage-
+  namespace: openshift-local-storage
 spec:
   targetNamespaces:
-    - KUSTOMIZE_ME
+    - openshift-local-storage
+  upgradeStrategy: Default
