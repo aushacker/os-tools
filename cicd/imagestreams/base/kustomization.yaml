@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - bc-tools.yaml
+  - bc-tools2.yaml
   - is-tools.yaml
   - is-ubi8.yaml
