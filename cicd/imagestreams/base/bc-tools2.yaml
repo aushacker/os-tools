@@ -23,4 +23,6 @@ spec:
     to:
       kind: DockerImage
       name: 'quay.io/sdavies/tools:1.0'
+    pushSecret:
+      name: sdavies-tekton-1-pull-secret
   runPolicy: Serial
