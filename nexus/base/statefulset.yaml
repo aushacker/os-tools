@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nexus
+spec:
+  selector:
+    matchLabels:
+      app: nexus
+  serviceName: nexus
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: nexus
+          image: nexus
+          ports:
+            - containerPort: 8081
+              name: http
+          resources:
+            requests:
+              cpu: 100m
+              memory: 1Gi
+            limits:
+              cpu: 2
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: data
+              mountPath: /nexus-data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: nfs
+        resources:
+          requests:
+            storage: 50Gi
