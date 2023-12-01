@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: repo-aushacker-public
+  name: repo-os-tools
   namespace: openshift-gitops
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  url: https://github.com/aushacker
+  type: git
+  project: default
+  url: https://github.com/aushacker/os-tools.git
