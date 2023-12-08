@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    image: docker.io/mongodb/mongodb-community-server:6.0-ubi8
+    container_name: mongodb
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: rootPa55
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
+    name: mongodb-data
