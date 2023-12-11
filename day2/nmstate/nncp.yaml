@@ -1,0 +1,22 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+   name: br1-ens19-policy
+spec:
+  nodeSelector:
+    external-network: "true"
+  desiredState:
+    interfaces:
+      - name: br1
+        description: Linux bridge with ens19 as a port
+        type: linux-bridge
+        state: up
+        ipv4:
+          dhcp: true
+          enabled: true
+        bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+            - name: ens19
