@@ -1,4 +1,4 @@
-FROM quay.io/buildah/stable
+FROM quay.io/buildah/stable:v1
 
 RUN touch /etc/subgid /etc/subuid \
  && chmod g=u /etc/subgid /etc/subuid /etc/passwd \
@@ -18,5 +18,5 @@ WORKDIR /home/build
 COPY buildahimage.sh .
 
 # Just keep the container running, allowing "oc rsh" access
-#CMD ./buildahimage.sh
-CMD [ "python3", "-m", "http.server" ]
+CMD [ "buildah", "unshare", "./buildahimage.sh" ]
+#CMD [ "python3", "-m", "http.server" ]
