@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: test-pipeline
+spec:
+  workspaces:
+    - name: source
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: gen-coded
+      workspaces:
+        - name: source
