@@ -1,0 +1,63 @@
+#!/bin/bash
+
+host=http://nexus-nexus3.apps.lab.ocp.lan
+#host=$1
+huri="/service/rest/v1/repositories/maven/hosted"
+guri="/service/rest/v1/repositories/maven/group"
+
+read -s -p "Admin Password: " pwd
+
+function createHostedRepo() {
+    local name=$1
+    local policy=$2
+
+    local template="{\
+  \"name\": \"${name}\",\
+  \"online\": true,\
+  \"storage\": {\
+    \"blobStoreName\": \"default\",\
+    \"strictContentTypeValidation\": true,\
+    \"writePolicy\": \"allow_once\"\
+  },\
+  \"cleanup\": {\
+    \"policyNames\": [\
+      \"string\"\
+    ]\
+  },\
+  \"component\": {\
+    \"proprietaryComponents\": true\
+  },\
+  \"maven\": {\
+    \"versionPolicy\": \"${policy}\",\
+    \"layoutPolicy\": \"STRICT\",\
+    \"contentDisposition\": \"ATTACHMENT\"
+  }\
+}"
+
+    curl -k -u "admin:${pwd}" -X POST -d "$template" --header "Content-Type:application/json" ${host}${huri}
+}
+
+function createGroupRepo() {
+    local name=$1
+    local repos=$2
+
+    local template="{\
+  \"name\": \"${name}\",\
+  \"online\": true,\
+  \"storage\": {\
+    \"blobStoreName\": \"default\",\
+    \"strictContentTypeValidation\": true\
+  },\
+  \"group\": {\
+    \"memberNames\": [\
+      ${repos}\
+    ]\
+  }\
+}"
+
+    curl -k -u "admin:${pwd}" -X POST -d "$template" --header "Content-Type:application/json" ${host}${guri}
+}
+
+createHostedRepo mymaven-releases RELEASE
+createHostedRepo mymaven-snapshots SNAPSHOT
+createGroupRepo mymaven-public "\"mymaven-releases\", \"mymaven-snapshots\""
