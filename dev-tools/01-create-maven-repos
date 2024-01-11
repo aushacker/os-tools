@@ -1,6 +1,6 @@
 #!/bin/bash
 
-host=http://nexus-nexus3.apps.lab.ocp.lan
+host=http://nexus-dev-tools.apps.lab.ocp.lan
 #host=$1
 huri="/service/rest/v1/repositories/maven/hosted"
 guri="/service/rest/v1/repositories/maven/group"
