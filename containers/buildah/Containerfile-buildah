@@ -17,6 +17,4 @@ WORKDIR /home/build
 
 COPY buildahimage.sh .
 
-# Just keep the container running, allowing "oc rsh" access
 CMD [ "buildah", "unshare", "./buildahimage.sh" ]
-#CMD [ "python3", "-m", "http.server" ]

@@ -3,7 +3,9 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - bc-openldap.yaml
   - bc-tools.yaml
   - bc-tools2.yaml
+  - is-openldap.yaml
   - is-tools.yaml
   - is-ubi8.yaml

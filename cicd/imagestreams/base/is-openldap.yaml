@@ -1,0 +1,21 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: openldap
+  annotations:
+    openshift.io/display-name: Remediated Bitnami OpenLDAP
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: '2.6'
+      annotations:
+        version: '2.6'
+      from:
+        kind: DockerImage
+        name: 'docker.io/bitnami/openldap:2.6'
+      importPolicy:
+        importMode: Legacy
+        scheduled: true
+      referencePolicy:
+        type: Local

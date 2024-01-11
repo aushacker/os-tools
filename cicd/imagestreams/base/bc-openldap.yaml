@@ -1,0 +1,30 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: openldap
+spec:
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'openldap:2.6'
+  triggers:
+    - type: ImageChange
+  source:
+    type: Dockerfile
+    dockerfile: |
+      FROM docker.io/bitnami/openldap:2.6
+
+      USER 0
+
+      RUN chmod 775 /run
+
+      USER 1001
+  output:
+    to:
+      kind: DockerImage
+      name: 'quay.io/sdavies/openldap:2.6'
+    pushSecret:
+      name: quay-push-secret
+  runPolicy: Serial
