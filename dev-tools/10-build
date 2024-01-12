@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#if (( $# != 1 )); then
+#    >&2 echo "Usage: $0 URL"
+#    exit 1
+#fi
+
+tkn pipeline start maven-build \
+  -w name=source,volumeClaimTemplateFile=source-template.yaml \
+  -w name=maven-settings,config=maven-settings \
+  -p git-url="https://github.com/aushacker/java-sandpit.git" \
+  -p git-revision="main" \
+  --use-param-defaults --showlog
+
+exit 0

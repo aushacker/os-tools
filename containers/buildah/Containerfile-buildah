@@ -1,0 +1,20 @@
+FROM quay.io/buildah/stable:v1
+
+RUN touch /etc/subgid /etc/subuid \
+ && chmod g=u /etc/subgid /etc/subuid /etc/passwd \
+ && echo -e "build:1:999\nbuild:1001:64535" > /etc/subuid \
+ && echo -e "build:1:999\nbuild:1001:64535" > /etc/subgid
+
+# Use chroot since the default runc does not work when running rootless
+RUN echo "export BUILDAH_ISOLATION=chroot" >> /home/build/.bashrc
+
+# Use VFS since fuse does not work
+RUN mkdir -p /home/build/.config/containers \
+ && (echo '[storage]';echo 'driver = "vfs"') > /home/build/.config/containers/storage.conf
+
+USER build
+WORKDIR /home/build
+
+COPY buildahimage.sh .
+
+CMD [ "buildah", "unshare", "./buildahimage.sh" ]
