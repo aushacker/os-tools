@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: maven-build
+spec:
+  params:
+    - name: git-url
+      description: Repository URL to clone from
+      type: string
+    - name: git-revision
+      default: main
+      description: Revision to checkout (branch, tag, sha, ref etc.)
+      type: string
+    - name: context-dir
+      type: string
+      description: The context directory within the repository for sources on which we want to execute maven goals
+      default: '.'
+    - name: image
+      type: string
+      description: The name (reference) of the image to build.
+      default: ""
+  tasks:
+    - name: fetch
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value: $(params.git-revision)
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: source
+    - name: build
+      taskRef:
+        kind: ClusterTask
+        name: maven
+      runAfter:
+        - fetch
+      params:
+        - name: CONTEXT_DIR
+          value: $(params.context-dir)
+        - name: GOALS
+          value:
+            - --batch-mode
+            - package
+      workspaces:
+        - name: source
+          workspace: source
+        - name: maven-settings
+          workspace: maven-settings
+  workspaces:
+    - name: source
+    - name: maven-settings

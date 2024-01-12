@@ -8,3 +8,4 @@ resources:
 
 components:
   - ../../components/nexus3
+  - ../../components/tekton-maven
