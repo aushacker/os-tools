@@ -4,3 +4,4 @@ kind: Component
 resources:
   - cm-maven-settings.yaml
   - pipeline-maven.yaml
+  - pvc-maven-local.yaml
