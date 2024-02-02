@@ -32,7 +32,7 @@ spec:
       workspaces:
         - name: output
           workspace: source
-    - name: build
+    - name: unit-test
       taskRef:
         kind: Task
         name: maven
@@ -44,6 +44,27 @@ spec:
         - name: GOALS
           value:
             - --batch-mode
+            - test
+      workspaces:
+        - name: source
+          workspace: source
+        - name: maven-settings
+          workspace: maven-settings
+        - name: maven-local-repo
+          workspace: maven-local-repo
+    - name: package
+      taskRef:
+        kind: Task
+        name: maven
+      runAfter:
+        - unit-test
+      params:
+        - name: CONTEXT_DIR
+          value: $(params.context-dir)
+        - name: GOALS
+          value:
+            - --batch-mode
+            - -DskipTests
             - package
       workspaces:
         - name: source
