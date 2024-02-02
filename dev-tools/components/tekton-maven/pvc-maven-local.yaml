@@ -4,7 +4,7 @@ metadata:
   name: maven-local-repo
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   volumeMode: Filesystem
   resources:
     requests:
