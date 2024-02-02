@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-tools
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: dev-tools
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: dev-tools/overlays/all
+    repoURL: 'https://github.com/aushacker/os-tools.git'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
