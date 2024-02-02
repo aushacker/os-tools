@@ -8,6 +8,7 @@
 tkn pipeline start maven-build \
   -w name=source,volumeClaimTemplateFile=source-template.yaml \
   -w name=maven-settings,config=maven-settings \
+  -w name=maven-local-repo,claimName=maven-local-repo \
   -p git-url="https://github.com/aushacker/java-sandpit.git" \
   -p git-revision="main" \
   --use-param-defaults --showlog

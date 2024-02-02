@@ -50,6 +50,8 @@ spec:
           workspace: source
         - name: maven-settings
           workspace: maven-settings
+        - name: maven-local-repo
+          workspace: maven-local-repo
   workspaces:
     - name: source
     - name: maven-settings
