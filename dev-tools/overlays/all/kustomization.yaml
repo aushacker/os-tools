@@ -9,4 +9,4 @@ resources:
 components:
   - ../../components/nexus3
   - ../../components/tekton-maven
-  - ../../components/ext-secrets-azure
+#  - ../../components/ext-secrets-azure
