@@ -3,7 +3,5 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - secret-azure-vault.yaml
-  - css-azure.yaml
-  - ces-postgresql-library-creds.yaml
-  - ces-key-example.yaml
+#  - ces-postgresql-library-creds.yaml
+#  - ces-key-example.yaml

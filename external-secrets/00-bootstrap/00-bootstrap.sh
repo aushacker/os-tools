@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Installs the External Secrets Operator.
-# Configuration is left to kustomization.
+# Installs the External Secrets Operator and applies
+# a basic configuration.
 #
 # Aushacker
 # Feb 2024
@@ -26,5 +26,7 @@ while true; do
 done
 
 echo "Waiting for controller to become available"
-sleep 10
 oc wait --for=condition=Available $controller
+
+echo "Applying operator configuration"
+oc apply -f operator-config.yaml
