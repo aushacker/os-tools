@@ -24,4 +24,5 @@ The default ServiceAccount has insufficient permissions to create
 the required resources in other namespaces. The account should be
 granted additional permissions to target namespaces e.g.:
 
+`oc apply -f apps/rolebinding-dev-tools.yaml`
 `oc apply -f apps/rolebinding-nginx.yaml`
