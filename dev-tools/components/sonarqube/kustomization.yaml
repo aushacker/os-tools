@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - cm-db-init.yaml
+  - ss-postgresql.yaml
+
+images:
+  - name: postgres
+    newName: docker.io/library/postgres
+    newTag: '16.1'

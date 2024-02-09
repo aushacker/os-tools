@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-scripts
+data:
+  init-user-db.sh: |
+    #!/bin/bash
+    set -e
+
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+      CREATE USER sonarqube;
+      CREATE DATABASE sonarqube;
+      GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;
+      ALTER USER sonarqube SET search_path to sonarqube;
+    EOSQL
