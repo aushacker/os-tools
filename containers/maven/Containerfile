@@ -1,0 +1,19 @@
+FROM registry.access.redhat.com/ubi9-minimal
+
+ARG MAVEN_VERSION=3.9.6
+
+RUN microdnf update -y && \
+    microdnf install -y --nodocs tar java-17-openjdk-devel && \
+    microdnf clean all
+
+WORKDIR /opt
+
+# Install Maven from binary
+RUN curl https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar xz && \
+    ln -s apache-maven-${MAVEN_VERSION} maven && \
+    useradd -ms /bin/bash maven
+
+USER maven
+WORKDIR /home/maven
+
+COPY .bashrc .
