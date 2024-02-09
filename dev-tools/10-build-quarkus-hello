@@ -1,0 +1,13 @@
+#!/bin/bash
+#  -p goals-package="--batch-mode,-DskipTests=true,-Dquarkus.jib.base-jvm-image=$(params.jibBaseImage),-Dquarkus.container-image.insecure=true,-Dquarkus.container-image.registry=example.com,-Dquarkus.container-image.build=true,-Dquarkus.container-image.push=true,-Dquarkus.container-image.group=$(params.imageGroup),-Dquarkus.container-image.name=$(params.imageName),package"
+
+tkn pipeline start maven-build \
+  -w name=source,volumeClaimTemplateFile=source-template.yaml \
+  -w name=maven-settings,config=maven-settings \
+  -w name=maven-local-repo,claimName=maven-local-repo \
+  -p git-url="https://github.com/aushacker/quarkus.git" \
+  -p git-revision="main" \
+  -p context-dir="quarkus-hello" \
+  --use-param-defaults --showlog
+
+exit 0

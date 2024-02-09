@@ -15,6 +15,22 @@ spec:
       type: string
       description: The context directory within the repository for sources on which we want to execute maven goals
       default: '.'
+    - name: maven-image
+      default: 'quay.io/sdavies/maven'
+      type: string
+    - name: goals-test
+      type: array
+      description: Maven goals for the unit test task
+      default:
+        - '--batch-mode'
+        - test
+    - name: goals-package
+      type: array
+      description: Maven goals for the package task
+      default:
+        - --batch-mode
+        - -DskipTests
+        - package
     - name: image
       type: string
       description: The name (reference) of the image to build.
@@ -39,12 +55,12 @@ spec:
       runAfter:
         - fetch
       params:
+        - name: MAVEN_IMAGE
+          value: $(params.maven-image)
         - name: CONTEXT_DIR
           value: $(params.context-dir)
         - name: GOALS
-          value:
-            - --batch-mode
-            - test
+          value: ["$(params.goals-test[*])"]
       workspaces:
         - name: source
           workspace: source
@@ -59,13 +75,12 @@ spec:
       runAfter:
         - unit-test
       params:
+        - name: MAVEN_IMAGE
+          value: $(params.maven-image)
         - name: CONTEXT_DIR
           value: $(params.context-dir)
         - name: GOALS
-          value:
-            - --batch-mode
-            - -DskipTests
-            - package
+          value: ["$(params.goals-package[*])"]
       workspaces:
         - name: source
           workspace: source
