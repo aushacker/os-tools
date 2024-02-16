@@ -37,27 +37,29 @@ spec:
       default: ""
   tasks:
     - name: fetch
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
       params:
         - name: url
           value: $(params.git-url)
         - name: revision
           value: $(params.git-revision)
-      taskRef:
-        kind: ClusterTask
-        name: git-clone
       workspaces:
         - name: output
           workspace: source
     - name: unit-test
       taskRef:
-        resolver: git
+        resolver: hub
         params:
-          - name: url
-            value: https://github.com/tektoncd/catalog.git
-          - name: revision
-            value: main
-          - name: pathInRepo
-            value: task/maven/0.3/maven.yaml
+          - name: type
+            value: tekton
+          - name: kind
+            value: task
+          - name: name
+            value: maven
+          - name: version
+            value: "0.3"
       runAfter:
         - fetch
       params:
@@ -76,14 +78,16 @@ spec:
           workspace: maven-local-repo
     - name: package
       taskRef:
-        resolver: git
+        resolver: hub
         params:
-          - name: url
-            value: https://github.com/tektoncd/catalog.git
-          - name: revision
-            value: main
-          - name: pathInRepo
-            value: task/maven/0.3/maven.yaml
+          - name: type
+            value: tekton
+          - name: kind
+            value: task
+          - name: name
+            value: maven
+          - name: version
+            value: "0.3"
       runAfter:
         - unit-test
       params:
