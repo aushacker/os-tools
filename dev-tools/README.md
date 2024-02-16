@@ -1,9 +1,11 @@
 # Setup Instructions
 Aushacker</br>
-Feb 2004
+Feb 2024
 
 Read notes and install ArgoCD first.
 
-Maven pipeline uses an alternate maven Task:
+## Nexus 3
 
-`oc apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/maven/0.3/raw`
+1. Needs to login manually, user id is admin, password is in the Pod - /nexus-data/admin.password
+1. Change password
+1. Allow anonymous access

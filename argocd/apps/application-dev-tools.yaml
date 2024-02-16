@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: dev-tools/overlays/all
+    path: dev-tools/overlays/no-secrets
     repoURL: 'https://github.com/aushacker/os-tools.git'
     targetRevision: HEAD
   syncPolicy:
