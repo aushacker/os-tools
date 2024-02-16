@@ -9,11 +9,11 @@ spec:
         - name: nfs-provisioner
           env:
             - name: NFS_SERVER
-              value: 192.168.22.1
+              value: ocp-svc.home.lab
             - name: NFS_PATH
               value: /shares/dynamic
       volumes:
        - name: nfs-volume
          nfs:
-           server: 192.168.22.1
+           server: ocp-svc.home.lab
            path: /shares/dynamic

@@ -9,12 +9,19 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        openshift.io/required-scc: "hostmount-anyuid"
       labels:
         app: nfs-provisioner
     spec:
       containers:
         - name: nfs-provisioner
           image: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+#          securityContext:
+#            allowPrivilegeEscalation: false
+#            capabilities:
+#              drop:
+#                - ALL
           volumeMounts:
             - name: nfs-volume
               mountPath: /persistentvolumes
@@ -26,6 +33,10 @@ spec:
             - name: NFS_PATH
               value: /path
       serviceAccountName: nfs-provisioner
+#      securityContext:
+#        runAsNonRoot: true
+#        seccompProfile:
+#          type: RuntimeDefault
       volumes:
        - name: nfs-volume
          nfs:
