@@ -5,3 +5,5 @@ resources:
   - cm-maven-settings.yaml
   - pipeline-maven.yaml
   - pvc-maven-local.yaml
+  - event-listener.yaml
+  - service-event-listener.yaml

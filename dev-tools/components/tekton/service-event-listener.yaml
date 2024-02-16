@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: github-event-listener
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: github-listener
+  ports:
+    - port: 8080
+      nodePort: 30080
