@@ -34,16 +34,18 @@ spec:
           workspace: source
     - name: build-image
       taskRef:
-        resolver: hub
-        params:
-          - name: type
-            value: tekton
-          - name: kind
-            value: task
-          - name: name
-            value: buildah
-          - name: version
-            value: "0.7"
+        kind: ClusterTask
+        name: buildah
+#        resolver: hub
+#        params:
+#          - name: type
+#            value: tekton
+#          - name: kind
+#            value: task
+#          - name: name
+#            value: buildah
+#          - name: version
+#            value: "0.7"
       runAfter:
         - fetch
       params:
