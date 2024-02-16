@@ -32,5 +32,30 @@ spec:
       workspaces:
         - name: output
           workspace: source
+    - name: build-image
+      taskRef:
+        resolver: hub
+        params:
+          - name: type
+            value: tekton
+          - name: kind
+            value: task
+          - name: name
+            value: buildah
+          - name: version
+            value: "0.7"
+      runAfter:
+        - fetch
+      params:
+        - name: CONTEXT
+          value: $(params.context-dir)
+        - name: IMAGE
+          value: $(params.image)
+      workspaces:
+        - name: source
+          workspace: source
+        - name: dockerconfig
+          workspace: dockerconfig
   workspaces:
     - name: source
+    - name: dockerconfig

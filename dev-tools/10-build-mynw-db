@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#if (( $# != 1 )); then
+#    >&2 echo "Usage: $0 URL"
+#    exit 1
+#fi
+
+tkn pipeline start generic-build \
+  -w name=source,volumeClaimTemplateFile=source-template.yaml \
+  -w name=dockerconfig,secret=sdavies-tekton-1-pull-secret \
+  -p git-url="https://github.com/aushacker/mynorthwind.git" \
+  -p git-revision="main" \
+  -p context-dir="dockerdb" \
+  -p image="quay.io/sdavies/mynw-db" \
+  --use-param-defaults --showlog
+
+exit 0
