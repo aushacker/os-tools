@@ -50,8 +50,14 @@ spec:
           workspace: source
     - name: unit-test
       taskRef:
-        kind: Task
-        name: maven
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/tektoncd/catalog.git
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: task/maven/0.3/maven.yaml
       runAfter:
         - fetch
       params:
@@ -70,8 +76,14 @@ spec:
           workspace: maven-local-repo
     - name: package
       taskRef:
-        kind: Task
-        name: maven
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/tektoncd/catalog.git
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: task/maven/0.3/maven.yaml
       runAfter:
         - unit-test
       params:

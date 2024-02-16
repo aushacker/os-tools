@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
-  - https://api.hub.tekton.dev/v1/resource/tekton/task/maven/0.3/raw
   - cm-maven-settings.yaml
   - pipeline-maven.yaml
   - pvc-maven-local.yaml
