@@ -53,6 +53,8 @@ spec:
           value: $(params.context-dir)
         - name: IMAGE
           value: $(params.image)
+        - name: BUILDER_IMAGE
+          value: quay.io/sdavies/buildah
       workspaces:
         - name: source
           workspace: source
