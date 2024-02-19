@@ -36,16 +36,6 @@ spec:
       taskRef:
         kind: ClusterTask
         name: buildah
-#        resolver: hub
-#        params:
-#          - name: type
-#            value: tekton
-#          - name: kind
-#            value: task
-#          - name: name
-#            value: buildah
-#          - name: version
-#            value: "0.7"
       runAfter:
         - fetch
       params:
@@ -53,8 +43,6 @@ spec:
           value: $(params.context-dir)
         - name: IMAGE
           value: $(params.image)
-        - name: BUILDER_IMAGE
-          value: quay.io/sdavies/buildah
       workspaces:
         - name: source
           workspace: source
