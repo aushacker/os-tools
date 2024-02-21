@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sec
+  labels:
+    app.kubernetes.io/name: sec-nonroot
+spec:
+  selector:
+    matchLabels:
+      app: sec-nonroot
+  template:
+    metadata:
+      labels:
+        app: sec-nonroot
+    spec:
+      containers:
+        - name: main
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false

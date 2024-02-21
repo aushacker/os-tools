@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sec
+  labels:
+    app.kubernetes.io/name: sec
+    app.kubernetes.io/part-of: os-tools-pod-security
+    app.kubernetes.io/component: utility
+    app.openshift.io/runtime: redhat
+spec:
+  selector:
+    matchLabels:
+      app: sec
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sec
+    spec:
+      containers:
+        - name: main
+          image: sec
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          command:
+            - /bin/bash
+          args:
+            - '-c'
+            - sleep infinity

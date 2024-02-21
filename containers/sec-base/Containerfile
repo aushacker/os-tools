@@ -1,0 +1,5 @@
+FROM registry.access.redhat.com/ubi8
+
+RUN dnf upgrade -y && \
+    dnf install -y --setopt=tsflags=nodocs procps-ng libcap iputils --exclude container-selinux && \
+    dnf clean all
