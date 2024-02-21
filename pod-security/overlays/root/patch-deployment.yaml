@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   name: sec
   labels:
-    app.kubernetes.io/name: sec-base
+    app.kubernetes.io/name: sec-root
 spec:
   selector:
     matchLabels:
-      app: sec-base
+      app: sec-root
   template:
     metadata:
       labels:
-        app: sec-base
+        app: sec-root
     spec:
-      serviceAccountName: sa-sec-base
+      serviceAccountName: sa-sec-root
       containers:
         - name: main
           securityContext:

@@ -2,14 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: aaa-security
-nameSuffix: -nonroot
+nameSuffix: -root
 
 resources:
   - ../../base
-
-images:
-  - name: sec
-    newName: quay.io/sdavies/sec-base
+  - service-account.yaml
 
 patches:
   - path: patch-deployment.yaml

@@ -6,11 +6,6 @@ nameSuffix: -nonroot
 
 resources:
   - ../../base
-  - service-account.yaml
-
-images:
-  - name: sec
-    newName: quay.io/sdavies/sec-base
 
 patches:
   - path: patch-deployment.yaml
