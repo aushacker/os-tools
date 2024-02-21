@@ -7,10 +7,10 @@ resources:
 #  - role-binding.yaml
 
 images:
-- name: nginx
-  newName: nginx
-  newTag: stable
+  - name: nginx
+    newName: nginx
+    newTag: stable
 
 patches:
-- path: patch-deployment-ports.yaml
-- path: patch-deployment-security.yaml
+  - path: patch-deployment-ports.yaml
+  - path: patch-deployment-security.yaml

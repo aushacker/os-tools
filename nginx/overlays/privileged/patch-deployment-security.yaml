@@ -4,5 +4,13 @@ metadata:
   name: nginx
 spec:
   template:
+#    metadata:
+#      annotations:
+#        openshift.io/required-scc: anyuid
     spec:
       serviceAccountName: nginx-sa
+      containers:
+        - name: nginx
+          securityContext:
+            runAsUser: 0
+            allowPrivilegeEscalation: true

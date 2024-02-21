@@ -2,6 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
+  labels:
+    app.kubernetes.io/name: nginx
+    app.kubernetes.io/part-of: os-tools-nginx
+    app.kubernetes.io/component: web
+    app.openshift.io/runtime: nginx
 spec:
   selector:
     matchLabels:
@@ -16,12 +21,32 @@ spec:
         - name: nginx
           image: nginx
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 8080
+              initialDelaySeconds: 3
+              periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 8080
+              initialDelaySeconds: 3
+              periodSeconds: 3
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
           volumeMounts:
             - name: static-content
               mountPath: "/usr/share/nginx/html"
               readOnly: true
-          securityContext:
-            allowPrivilegeEscalation: false
       volumes:
       - name: static-content
         configMap:

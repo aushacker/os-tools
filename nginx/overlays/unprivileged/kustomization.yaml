@@ -5,9 +5,9 @@ resources:
   - ../../base
 
 images:
-- name: nginx
-  newName: nginxinc/nginx-unprivileged
-  newTag: stable
+  - name: nginx
+    newName: nginxinc/nginx-unprivileged
+    newTag: stable
 
 patches:
-- path: patch-deployment-ports.yaml
+  - path: patch-deployment-ports.yaml
