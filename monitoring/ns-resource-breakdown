@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#
+# Generate a report for OpenShift showing workload resource usage
+# by namespace. 
+#
+# aushacker
+# Feb 2024
+
+thanos="https://thanos-querier-openshift-monitoring.apps.sno.home.lab/api/v1/query"
+auth="Authorization: Bearer sha256~KqaBpyoy5xb-ln_K7cECSImt91kJGKyzwz6YacDWwZE"
+timescale="[2w:5m]"
+
+function query_thanos() {
+    ns=$1
+    series=$2
+    aggregate=$3
+
+    query="query=${aggregate}_over_time(${series}{namespace=\"${ns}\"}${timescale})"
+    result=$(curl -ks --request POST --header "${auth}" --header "Content-Type: application/x-www-form-urlencoded" $thanos --data-urlencode ${query} | jq '.data.result[0].value[1]')
+    echo -n $result
+}
+
+# Get all application namespaces i.e. ignore default, kube* and openshift*.
+app_ns=$(oc get ns -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' 2> /dev/null | grep -v "^default" | grep -v "^kube.*" | grep -v "^openshift.*")
+
+for ns in $app_ns
+do
+    echo -n "${ns},"
+    for series in "namespace:container_cpu_usage:sum" "namespace:container_memory_usage_bytes:sum"
+    do
+        for aggregate in "min" "avg" "max"
+        do
+            echo -n "$(query_thanos $ns $series $aggregate),"
+        done
+    done
+    # new line
+    echo ""
+done
