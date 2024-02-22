@@ -7,8 +7,13 @@
 # aushacker
 # Feb 2024
 
-thanos="https://thanos-querier-openshift-monitoring.apps.sno.home.lab/api/v1/query"
-auth="Authorization: Bearer sha256~KqaBpyoy5xb-ln_K7cECSImt91kJGKyzwz6YacDWwZE"
+read -p "Thanos URL: " thanos
+read -s -p "Authentication token: " token
+echo
+
+#thanos="https://thanos-querier-openshift-monitoring.apps./api/v1/query"
+thanos+="/api/v1/query"
+auth="Authorization: Bearer ${token}"
 timescale="[2w:5m]"
 
 function query_thanos() {
