@@ -11,7 +11,7 @@ read -p "Thanos URL: " thanos
 read -s -p "Authentication token: " token
 echo
 
-#thanos="https://thanos-querier-openshift-monitoring.apps./api/v1/query"
+#thanos="https://thanos-querier-openshift-monitoring.apps.sno.home.lab"
 thanos+="/api/v1/query"
 auth="Authorization: Bearer ${token}"
 timescale="[2w:5m]"
@@ -21,7 +21,10 @@ function query_thanos() {
     series=$2
     aggregate=$3
 
+    # e.g. query=min_over_time(namespace:container_cpu_usage:sum{namespace="myns"}[2w:5m])
     query="query=${aggregate}_over_time(${series}{namespace=\"${ns}\"}${timescale})"
+
+    # json result - {"status":"success","data":{"resultType":"vector","result":[{"metric":{"namespace":"myns","prometheus":"openshift-monitoring/k8s"},"value":[1708903206.843,"0"]}]}}
     result=$(curl -ks --request POST --header "${auth}" --header "Content-Type: application/x-www-form-urlencoded" $thanos --data-urlencode ${query} | jq '.data.result[0].value[1]')
     echo -n $result
 }
@@ -29,16 +32,19 @@ function query_thanos() {
 # Get all application namespaces i.e. ignore default, kube* and openshift*.
 app_ns=$(oc get ns -o go-template='{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' 2> /dev/null | grep -v "^default" | grep -v "^kube.*" | grep -v "^openshift.*")
 
+# extract the following stats per namespace
+echo 'Namespace, "cpu min", "cpu avg", "cpu max", "mem min", "min avg", "mem max"'
 for ns in $app_ns
 do
     echo -n "${ns},"
+    # select the prometheus series
     for series in "namespace:container_cpu_usage:sum" "namespace:container_memory_usage_bytes:sum"
     do
+        # apply separate aggregate functions to the selected series
         for aggregate in "min" "avg" "max"
         do
             echo -n "$(query_thanos $ns $series $aggregate),"
         done
     done
-    # new line
-    echo ""
+    echo
 done
