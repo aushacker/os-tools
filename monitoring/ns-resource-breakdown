@@ -2,18 +2,15 @@
 
 #
 # Generate a report for OpenShift showing workload resource usage
-# by namespace. 
+# by namespace. Needs to execute with the user already logged in to
+# the Openshift CLI.
 #
 # aushacker
 # Feb 2024
 
-read -p "Thanos URL: " thanos
-read -s -p "Authentication token: " token
-echo
-
-#thanos="https://thanos-querier-openshift-monitoring.apps.sno.home.lab"
+thanos="https://thanos-querier-openshift-monitoring.apps.sno.home.lab"
 thanos+="/api/v1/query"
-auth="Authorization: Bearer ${token}"
+auth="Authorization: Bearer $(oc whoami -t)"
 timescale="[2w:5m]"
 
 function query_thanos() {
