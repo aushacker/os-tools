@@ -16,3 +16,7 @@ dropped.
 ## root
 
 Need to manually run `oc adm policy add-scc-to-user anyuid -z sa-sec-root`.
+
+## privileged
+
+Need to manually run `oc adm policy add-scc-to-user privileged -z sa-sec-privileged`.
