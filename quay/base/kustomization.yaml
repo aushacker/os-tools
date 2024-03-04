@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - namespace.yaml
+  - deployment-redis.yaml
+  - service-redis.yaml
+  - secret-redis.yaml
+
+images:
+  - name: redis
+    newName: registry.redhat.io/rhel8/redis-6
+    newTag: '1-110'
