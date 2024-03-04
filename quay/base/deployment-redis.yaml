@@ -5,7 +5,8 @@ metadata:
   labels:
     app.kubernetes.io/name: redis
     app.kubernetes.io/part-of: quay
-    app.kubernetes.io/component: utility
+    app.kubernetes.io/component: cache
+    app.kubernetes.io/managed-by: kustomize
     app.openshift.io/runtime: redis
 spec:
   selector:

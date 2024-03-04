@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: quay
+  labels:
+    app.kubernetes.io/name: quay
+    app.kubernetes.io/part-of: quay
+    app.kubernetes.io/component: server
+    app.openshift.io/runtime: quay
+spec:
+  selector:
+    matchLabels:
+      app: quay
+  replicas: 1
+  serviceName: quay
+  template:
+    metadata:
+      labels:
+        app: quay
+    spec:
+      initContainers:
+        - name: setup-certs
+          image: ubi8
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+            - '-c'
+            - '[ ! -d /conf/stack/extra_ca_certs ] && mkdir /conf/stack/extra_ca_certs || echo "ok"'
+          volumeMounts:
+            - name: config
+              mountPath: /conf/stack
+        - name: setup-config
+          image: ubi8
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+            - '-c'
+            - '[ ! -f /conf/stack/config.yaml ] && cp /config/config.yaml /conf/stack/config.yaml || echo "ok"'
+          volumeMounts:
+            - name: config
+              mountPath: /conf/stack
+            - name: quay-config
+              mountPath: /config
+      containers:
+        - name: quay
+          image: quay
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: https
+              containerPort: 8443
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+          volumeMounts:
+            - name: config
+              mountPath: /conf/stack
+#            - name: quay-config
+#              mountPath: /conf/stack/config.yaml
+#              subPath: config.yaml
+            - name: storage
+              mountPath: /datastorage
+      volumes:
+        - name: quay-config
+          configMap:
+            name: quay-config
+#            items:
+#              - key: config.yaml
+#                path: config.yaml
+  volumeClaimTemplates:
+    - metadata:
+        name: config
+      spec:
+        accessModes:
+          - ReadWriteMany
+        storageClassName: nfs
+        resources:
+          requests:
+            storage: 10k
+    - metadata:
+        name: storage
+      spec:
+        accessModes:
+          - ReadWriteMany
+        storageClassName: nfs
+        resources:
+          requests:
+            storage: 5Gi

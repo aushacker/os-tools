@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql-quay
+  labels:
+    app.kubernetes.io/name: postgresql-quay
+    app.kubernetes.io/part-of: quay
+    app.kubernetes.io/component: database
+    app.openshift.io/runtime: postgresql
+spec:
+  selector:
+    matchLabels:
+      app: postgresql-quay
+  replicas: 1
+  serviceName: postgresql-quay
+  template:
+    metadata:
+      labels:
+        app: postgresql-quay
+    spec:
+      containers:
+        - name: postgresql
+          image: postgresql
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: database-credentials
+          ports:
+            - name: postgresql
+              containerPort: 5432
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+          volumeMounts:
+            - name: postgresql-data
+              mountPath: /var/lib/pgsql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: postgresql-data
+      spec:
+        accessModes:
+          - ReadWriteMany
+        storageClassName: nfs
+        resources:
+          requests:
+            storage: 5Gi

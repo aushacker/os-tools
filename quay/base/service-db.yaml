@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-quay
+spec:
+  selector:
+    app: postgresql-quay
+  ports:
+    - name: postgresql
+      port: 5432
+      targetPort: postgresql
