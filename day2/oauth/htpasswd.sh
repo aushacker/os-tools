@@ -17,20 +17,7 @@ fi
 username=$1
 read -s -p "password> " password
 
-case $(uname) in
-Darwin)
-    OPTS=-nBb
-    ;;
-Linux)
-    OPTS=-cBb
-    ;;
-*)
-    echo "Unknown distro"
-    echo 1
-    ;;
-esac
-
-credentials=$(htpasswd $OPTS $username $password)
+credentials=$(htpasswd -nBb $username $password)
 
 echo
 echo
