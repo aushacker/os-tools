@@ -9,5 +9,5 @@ spec:
           name: htpasswd-secret
       mappingMethod: claim
       name: htpasswd
-      type: HTpasswd
+      type: HTPasswd
       
