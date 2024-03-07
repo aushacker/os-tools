@@ -21,7 +21,7 @@ function listContainers() {
 app_ns=$(oc get ns --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2> /dev/null | grep -v "^default" | grep -v "^kube.*" | grep -v "^openshift.*")
 
 # extract the following stats per namespace
-echo "Namespace,Workload,Type,Container,Replicas,Request CPU,Request Mem,Limit CPU,Limit Mem"
+echo "Namespace,Workload,Type,Replicas,Container,Request CPU,Request Mem,Limit CPU,Limit Mem"
 
 for namespace in $app_ns
 do
