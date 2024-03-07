@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#
+# Generates a report in CSV that itemises resource config
+# for requests and limits on a per container basis.
+#
+# aushacker
+# March 2024
+#
+
+function listContainers() {
+    ns=$1
+    name=$2
+    type=$3
+
+    oc get ${type} --namespace ${ns} ${name} --output=jsonpath="{range .spec.template.spec.containers[*]}{\"${namespace},${name},${type},\"}{.name}{\",\"}{.resources.requests.cpu}{\",\"}{.resources.requests.memory}{\",\"}{.resources.limits.cpu}{\",\"}{.resources.limits.memory}{\"\n\"}{end}"
+}
+
+# Get all application namespaces i.e. ignore default, kube* and openshift*.
+app_ns=$(oc get ns --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2> /dev/null | grep -v "^default" | grep -v "^kube.*" | grep -v "^openshift.*")
+
+# extract the following stats per namespace
+echo "Namespace,Workload,Type,Container"
+
+for namespace in $app_ns
+do
+    for workload in "deployment" "statefulset"
+    do
+        workloads=$(oc get ${workload}s --namespace=$namespace --output=jsonpath='{.items[*].metadata.name}')
+        for wname in $workloads
+        do
+            listContainers $namespace $wname $workload
+        done
+    done
+done
