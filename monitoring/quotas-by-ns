@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#
+# Extract selected ResourceQuota fields into CSV.
+# Account will need cluster view role.
+#
+# aushacker
+# March 2024
+#
+
+echo "namespace,request cpu,request mem,limit cpu,limit mem,used request cpu,used request mem,used limit cpu,used limit mem"
+oc get resourcequotas --all-namespaces --output=jsonpath='{range .items[*]}{.metadata.namespace}{","}{.spec.hard.requests\.cpu}{","}{.spec.hard.requests\.memory}{","}{.spec.hard.limits\.cpu}{","}{.spec.hard.limits\.memory}{","}{.status.used.requests\.cpu}{","}{.status.used.requests\.memory}{","}{.status.used.limits\.cpu}{","}{.status.used.limits\.memory}{"\n"}{end}'
