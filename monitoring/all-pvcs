@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#
+# Generates a report in CSV that itemises all application created PVCs.
+#
+# aushacker
+# March 2024
+#
+
+# Get all application namespaces i.e. ignore default, kube* and openshift*.
+app_ns=$(oc get ns --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2> /dev/null | grep -v "^default" | grep -v "^kube.*" | grep -v "^openshift.*")
+
+# extract the following stats per namespace
+echo "Namespace,Name,Storage Class,Volume Mode,Capacity,Access Modes"
+
+for namespace in $app_ns
+do
+    oc get pvc -n $namespace --no-headers=true --output=jsonpath='{range .items[*]}{.metadata.namespace}{","}{.metadata.name}{","}{.spec.storageClassName}{","}{.spec.volumeMode}{","}{.spec.resources.requests.storage}{","}{.spec.accessModes}{"\n"}{end}'
+done
