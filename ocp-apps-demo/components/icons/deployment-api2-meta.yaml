@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api2
+  labels:
+    app.openshift.io/runtime: nodejs
