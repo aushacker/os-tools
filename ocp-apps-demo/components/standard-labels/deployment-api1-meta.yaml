@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api1
+  labels:
+    app.kubernetes.io/name: my-api1
+    app.kubernetes.io/instance: my-api1
+    app.kubernetes.io/version: '1.0.0'
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: orders

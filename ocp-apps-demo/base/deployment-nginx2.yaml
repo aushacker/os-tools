@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgresql-orders
+  name: nginx2
 spec:
   selector:
     matchLabels:
-      app: postgresql-orders
+      app: nginx2
   replicas: 1
   template:
     metadata:
       labels:
-        app: postgresql-orders
+        app: nginx2
     spec:
       securityContext:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       containers:
-        - name: postgresql
+        - name: nginx
           image: registry.access.redhat.com/ubi9/ubi-micro
           resources:
             requests:
@@ -28,5 +28,9 @@ spec:
               memory: 128Mi
           command: ['sh', '-c', 'while true; do echo "tick" && sleep 60; done']
           imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false

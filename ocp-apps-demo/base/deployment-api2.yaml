@@ -1,26 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-api
-  labels:
-    app.kubernetes.io/name: my-api
-    app.kubernetes.io/instance: my-api
-    app.kubernetes.io/version: '1.0.0'
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/component: server
-    app.kubernetes.io/part-of: ocp-apps-demo
-    app.openshift.io/runtime: nodejs
-  annotations:
-    app.openshift.io/connects-to: my-db
+  name: my-api2
 spec:
   selector:
     matchLabels:
-      app: my-api
+      app: my-api2
   replicas: 1
   template:
     metadata:
       labels:
-        app: my-api
+        app: my-api2
     spec:
       securityContext:
         runAsNonRoot: true
@@ -29,6 +19,13 @@ spec:
       containers:
         - name: my-api
           image: registry.access.redhat.com/ubi9/ubi-micro
+          resources:
+            requests:
+              cpu: "10m"
+              memory: 64Mi
+            limits:
+              cpu: "100m"
+              memory: 128Mi
           command: ['sh', '-c', 'while true; do echo "tick" && sleep 60; done']
           imagePullPolicy: Always
           ports:
@@ -37,6 +34,3 @@ spec:
               protocol: TCP
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
