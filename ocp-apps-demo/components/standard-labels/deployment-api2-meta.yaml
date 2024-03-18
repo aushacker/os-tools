@@ -7,5 +7,5 @@ metadata:
     app.kubernetes.io/instance: my-api2
     app.kubernetes.io/version: '2.0.1'
     app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/component: server
+    app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: orders
