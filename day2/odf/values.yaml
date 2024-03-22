@@ -1,0 +1,6 @@
+subscription:
+  channel: stable-4.12
+  installPlanApproval: Automatic
+  source: redhat-operators
+externalCluster:
+  details: '' # Replace this with the external cluster JSON output
