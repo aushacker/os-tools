@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#
+# Generates a report in CSV that summarises workloads in non-system namespaces.
+#
+# aushacker
+# March 2024
+#
+
+function countResources() {
+    ns=$1
+    type=$2
+
+    echo -n ",$(oc get ${type} --namespace=${ns} --no-headers=true 2> /dev/null | wc -l)"
+}
+
+# Get all application namespaces i.e. ignore default, kube* and openshift*.
+app_ns=$(oc get ns --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' 2> /dev/null | grep -v "^default" | grep -v "^kube.*" | grep -v "^openshift.*")
+
+# extract the following stats per namespace
+echo "Namespace,DeploymentConfigs,Deployments,StatefulSets,CronJobs"
+
+for namespace in $app_ns
+do
+    echo -n "${namespace}"
+
+    for type in "deploymentconfig" "deployments" "statefulsets" "cronjobs"
+    do
+        countResources $namespace $type
+    done
+    echo
+done
