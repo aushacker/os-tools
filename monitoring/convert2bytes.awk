@@ -1,18 +1,15 @@
 #!/usr/bin/awk -f
+#
+# Component of all-pvcs. Converts storage size in k8s quantity
+# format to numeric bytes.
+# E.g. 6ki -> 6144
+#
+# aushacker
+# March 2024
+# 
 BEGIN {
         FS = ","
         OFS = ","
-}
-function extractData(ldata) {
-        split(ldata, c, ",")
-        if (section=="cpu") {
-                pod[c[1]] = c[1]
-                pod_cpu[c[1]] = c[2]
-        }
-        if (section=="mem") {
-                pod[c[1]] = c[1]
-                pod_mem[c[1]] = c[2]
-        }
 }
 # Match headings and append
 $1 ~ /Namespace/ {

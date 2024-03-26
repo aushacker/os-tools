@@ -20,6 +20,8 @@ do
     oc get pvc -n $namespace --no-headers=true --output=jsonpath='{range .items[*]}{.metadata.namespace}{","}{.metadata.name}{","}{.spec.storageClassName}{","}{.spec.volumeMode}{","}{.spec.resources.requests.storage}{","}{.spec.accessModes}{"\n"}{end}' >> $tempfile
 done
 
+# add an extra column for absolute byte count.
+# easier to do this with awk as Excel doesn't support regex's.
 cat $tempfile | ./convert2Bytes.awk
 
 rm $tempfile
