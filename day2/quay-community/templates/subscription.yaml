@@ -1,0 +1,13 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/project-quay.openshift-operators: ''
+  name: project-quay
+  namespace: openshift-operators
+spec:
+  channel: {{ .Values.subscription.channel }}
+  installPlanApproval: {{ .Values.subscription.installPlanApproval }}
+  name: project-quay
+  source: {{ .Values.subscription.source }}
+  sourceNamespace: openshift-marketplace

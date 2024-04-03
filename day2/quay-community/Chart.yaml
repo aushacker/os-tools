@@ -1,0 +1,4 @@
+apiVersion: v2
+name: quay-operator
+version: '3.11.0'
+description: Perform day 2 installation of the project Quay community operator

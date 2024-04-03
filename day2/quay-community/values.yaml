@@ -1,0 +1,4 @@
+subscription:
+  channel: stable-3.11
+  installPlanApproval: Automatic
+  source: community-operators
