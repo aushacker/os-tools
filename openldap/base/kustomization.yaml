@@ -9,4 +9,4 @@ resources:
 images:
 - name: openldap
   newName: docker.io/bitnami/openldap
-  newTag: '2.6.3'
+  newTag: 'latest'
