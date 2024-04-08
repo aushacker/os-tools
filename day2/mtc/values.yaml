@@ -1,0 +1,4 @@
+subscription:
+  channel: release-v1.8
+  installPlanApproval: Automatic
+  source: redhat-operators

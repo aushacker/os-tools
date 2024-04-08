@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-migration
+  labels:
+    kubernetes.io/metadata.name: openshift-migration
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec: {}

@@ -1,0 +1,15 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: mtc-operator
+  namespace: openshift-migration
+  labels:
+    operators.coreos.com/mtc-operator.openshift-migration: ''
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  channel: {{ .Values.subscription.channel }}
+  installPlanApproval: {{ .Values.subscription.installPlanApproval }}
+  name: mtc-operator
+  source: {{ .Values.subscription.source }}
+  sourceNamespace: openshift-marketplace

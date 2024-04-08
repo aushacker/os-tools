@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  generateName: openshift-migration-
+  namespace: openshift-migration
+  annotations:
+    olm.providedAPIs: 'Backup.v1.velero.io,BackupRepository.v1.velero.io,BackupStorageLocation.v1.velero.io,CloudStorage.v1alpha1.oadp.openshift.io,DataProtectionApplication.v1alpha1.oadp.openshift.io,DeleteBackupRequest.v1.velero.io,DirectImageMigration.v1alpha1.migration.openshift.io,DirectImageStreamMigration.v1alpha1.migration.openshift.io,DirectVolumeMigration.v1alpha1.migration.openshift.io,DirectVolumeMigrationProgress.v1alpha1.migration.openshift.io,DownloadRequest.v1.velero.io,MigAnalytic.v1alpha1.migration.openshift.io,MigCluster.v1alpha1.migration.openshift.io,MigHook.v1alpha1.migration.openshift.io,MigMigration.v1alpha1.migration.openshift.io,MigPlan.v1alpha1.migration.openshift.io,MigStorage.v1alpha1.migration.openshift.io,MigrationController.v1alpha1.migration.openshift.io,PodVolumeBackup.v1.velero.io,PodVolumeRestore.v1.velero.io,Restore.v1.velero.io,Schedule.v1.velero.io,ServerStatusRequest.v1.velero.io,VolumeSnapshotBackup.v1alpha1.datamover.oadp.openshift.io,VolumeSnapshotLocation.v1.velero.io,VolumeSnapshotRestore.v1alpha1.datamover.oadp.openshift.io'
+spec:
+  targetNamespaces:
+    - openshift-migration
+  upgradeStrategy: Default

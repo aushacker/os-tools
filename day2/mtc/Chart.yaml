@@ -1,0 +1,4 @@
+apiVersion: v2
+name: mtc-operator
+version: '1.0.0'
+description: Perform day 2 installation of the Migration Toolkit for Containers operator
