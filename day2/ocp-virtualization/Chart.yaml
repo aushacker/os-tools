@@ -1,0 +1,4 @@
+apiVersion: v2
+name: ocp-virtualization-operator
+version: '1.0.0'
+description: Perform day 2 installation of the OpenShift Virtualization operator

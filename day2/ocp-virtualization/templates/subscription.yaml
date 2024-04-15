@@ -1,0 +1,14 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: hco-operatorhub
+  namespace: openshift-cnv
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  source: {{ .Values.subscription.source }}
+  sourceNamespace: openshift-marketplace
+  name: kubevirt-hyperconverged
+  channel: {{ .Values.subscription.channel | quote }}
+  startingCSV: {{ .Values.subscription.startingCSV }}
+  installPlanApproval: {{ .Values.subscription.installPlanApproval }}

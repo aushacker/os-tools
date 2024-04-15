@@ -1,0 +1,5 @@
+subscription:
+  source: redhat-operators
+  channel: stable
+  startingCSV: kubevirt-hyperconverged-operator.v4.14.4
+  installPlanApproval: Automatic
