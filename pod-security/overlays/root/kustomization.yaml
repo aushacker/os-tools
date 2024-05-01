@@ -7,6 +7,8 @@ nameSuffix: -root
 resources:
   - ../../base
   - service-account.yaml
+  - role.yaml
+  - role-binding.yaml
 
 patches:
   - path: patch-deployment.yaml

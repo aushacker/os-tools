@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: use-scc-privileged
+subjects:
+  - kind: ServiceAccount
+    name: sa-sec
+roleRef:
+  kind: Role
+  name: use-scc-privileged
+  apiGroup: rbac.authorization.k8s.io

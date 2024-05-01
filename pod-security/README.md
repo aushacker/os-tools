@@ -15,8 +15,8 @@ dropped.
 
 ## root
 
-Need to manually run `oc adm policy add-scc-to-user anyuid -z sa-sec-root`.
-
 ## privileged
 
-Need to manually run `oc adm policy add-scc-to-user privileged -z sa-sec-privileged`.
+## Bibliography
+
+1. https://developer.ibm.com/learningpaths/secure-context-constraints-openshift/scc-tutorial/
