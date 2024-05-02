@@ -4,3 +4,9 @@ COPY ./mongodb-org-7.0.repo /etc/yum.repos.d/mongodb-org-7.0.repo
 
 RUN microdnf install -y mongodb-mongosh-shared-openssl3 && \
     microdnf clean all
+
+WORKDIR /work
+
+RUN chmod g+rwx /work
+
+ENTRYPOINT ["sleep", "infinity"]
