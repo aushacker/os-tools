@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongosh
+  labels:
+    app.kubernetes.io/name: mongosh
+    app.kubernetes.io/part-of: mongodb
+    app.kubernetes.io/component: frontend
+    app.openshift.io/runtime: bash
+spec:
+  selector:
+    matchLabels:
+      app: mongosh
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongosh
+    spec:
+      containers:
+        - name: mongosh
+          image: mongosh
+          resources:
+            requests:
+              cpu: 20m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%

@@ -7,10 +7,10 @@ metadata:
     app.kubernetes.io/part-of: mongodb
 spec:
   selector:
-    app.kubernetes.io/name: mongodb
-#  type: NodePort
+    app: mongodb
+  clusterIP: None
+  publishNotReadyAddresses: true
   ports:
     - name: mongodb
       port: 27017
       targetPort: mongodb
-#      nodePort: 30017

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongod-config
+data:
+  mongod.conf: |
+    net:
+      bindIpAll: true
+      port: 27017
+    replication:
+      replSetName: rs0
+    security:
+      keyFile: /etc/mongokey/keyfile

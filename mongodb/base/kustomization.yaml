@@ -3,10 +3,23 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - service-account.yaml
+  - role.yaml
+  - role-binding.yaml
+  - cm-config.yaml
+  - cm-keyfile.yaml
   - statefulset.yaml
   - service.yaml
+  - deployment-mongosh.yaml
 
 images:
   - name: mongodb
-    newName: docker.io/library/mongo
+#    newName: docker.io/library/mongo
+    newName: quay.io/sdavies/mongo
     newTag: 'latest'
+  - name: mongosh
+    newName: quay.io/sdavies/mongosh
+    newTag: 'latest'
+  - name: ubi9-minimal
+    newName: registry.access.redhat.com/ubi9-minimal
+    newTag: 9.4-949
