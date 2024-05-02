@@ -70,8 +70,8 @@ spec:
           configMap:
             name: mongod-config
         - name: keyfile
-          configMap:
-            name: mongod-keyfile
+          secret:
+            secretName: mongod-keyfile
         - name: keyfile-shared
           emptyDir:
             medium: Memory
