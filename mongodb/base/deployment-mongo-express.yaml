@@ -25,6 +25,7 @@ spec:
               cpu: 20m
               memory: 256Mi
             limits:
+              cpu: 500m
               memory: 512Mi
           securityContext:
             allowPrivilegeEscalation: false
@@ -39,7 +40,7 @@ spec:
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
               value: example
             - name: ME_CONFIG_MONGODB_SERVER
-              value: mongodb-0.mongodb
+              value: mongodb-0.mongodb,mongodb-1.mongodb,mongodb-2.mongodb
   strategy:
     type: RollingUpdate
     rollingUpdate:
