@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  labels:
+    app.kubernetes.io/name: mongo-express
+    app.kubernetes.io/part-of: mongodb
+    app.kubernetes.io/component: frontend
+    app.openshift.io/runtime: nodejs
+spec:
+  selector:
+    matchLabels:
+      app: mongo-express
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: mongo-express
+          resources:
+            requests:
+              cpu: 20m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+          env:
+            - name: ME_CONFIG_BASICAUTH_USERNAME
+              value: user1
+            - name: ME_CONFIG_BASICAUTH_PASSWORD
+              value: pA55w0rd
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: root
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: example
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: mongodb-0.mongodb
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%

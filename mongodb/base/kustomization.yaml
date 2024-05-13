@@ -11,6 +11,9 @@ resources:
   - statefulset.yaml
   - service.yaml
   - deployment-mongosh.yaml
+  - service-mongo-express.yaml
+  - deployment-mongo-express.yaml
+  - route-mongo-express.yaml
 
 images:
   - name: mongodb
@@ -19,6 +22,9 @@ images:
     newTag: 'latest'
   - name: mongosh
     newName: quay.io/sdavies/mongosh
+    newTag: 'latest'
+  - name: mongo-express
+    newName: docker.io/library/mongo-express
     newTag: 'latest'
   - name: ubi9-minimal
     newName: registry.access.redhat.com/ubi9-minimal

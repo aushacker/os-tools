@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mongo-express
+  labels:
+    app.kubernetes.io/name: mongo-express
+    app.kubernetes.io/part-of: mongodb
+spec:
+  host: mongo-express-mongodb.apps.sno.home.lab
+  to:
+    kind: Service
+    name: mongo-express
+    weight: 100
+  port:
+    targetPort: http
