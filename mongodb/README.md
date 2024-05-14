@@ -15,3 +15,23 @@ rs.initiate({
   ]
 })
 ```
+## Useful Commands
+
+On primary: <br/>
+```
+// mark a member as non-voting
+cfg = rs.config()
+cfg.members[2].priority = 0
+cfg.members[2].votes = 0
+rs.reconfig(cfg)
+```
+
+```
+// add a member to the resplica set
+rs.add( { "host": "mongodb-3.mongodb" } )
+```
+
+```
+// remove a member from the replica set
+rs.remove( "mongodb-3.mongodb" )
+```
