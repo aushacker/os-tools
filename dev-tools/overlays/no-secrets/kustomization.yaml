@@ -8,4 +8,5 @@ resources:
 
 components:
   - ../../components/nexus3
+  - ../../components/s2i
   - ../../components/tekton
