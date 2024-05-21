@@ -7,6 +7,7 @@ tkn pipeline start maven-build \
   -w name=maven-local-repo,claimName=maven-local-repo \
   -p git-url="https://github.com/aushacker/quarkus.git" \
   -p git-revision="main" \
+  -p maven-image="quay.io/sdavies/maven" \
   -p context-dir="quarkus-hello" \
   --use-param-defaults --showlog
 
