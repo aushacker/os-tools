@@ -16,7 +16,6 @@ spec:
       referencePolicy:
         type: Local
     - name: latest
-      annotations: null
       from:
         kind: DockerImage
         name: 'registry.access.redhat.com/ubi8/ubi-minimal:latest'
