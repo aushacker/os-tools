@@ -2,7 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
+  - is-secbase.yaml
   - is-ubi8.yaml
   - is-ubi8-minimal.yaml
   - is-ubi9.yaml
   - is-ubi9-minimal.yaml
+  - build-secbase.yaml

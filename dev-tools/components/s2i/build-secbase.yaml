@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: build-secbase
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: secbase:latest
+  source:
+    dockerfile: |
+      FROM registry.access.redhat.com/ubi9/ubi:latest
+
+      RUN dnf upgrade -y && \
+          dnf install -y --setopt=tsflags=nodocs procps-ng libcap iputils --exclude container-selinux && \
+          dnf clean all
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: ubi9:latest
