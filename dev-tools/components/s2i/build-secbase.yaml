@@ -7,7 +7,7 @@ spec:
   runPolicy: Serial
   source:
     type: Dockerfile
-    dockerfile: |-
+    dockerfile: |
       FROM registry.access.redhat.com/ubi9/ubi:latest
 
       RUN dnf upgrade -y && \
