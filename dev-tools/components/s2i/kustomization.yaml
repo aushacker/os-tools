@@ -4,3 +4,5 @@ kind: Component
 resources:
   - is-ubi8.yaml
   - is-ubi8-minimal.yaml
+  - is-ubi9.yaml
+  - is-ubi9-minimal.yaml

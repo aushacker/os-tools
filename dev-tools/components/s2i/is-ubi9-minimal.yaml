@@ -1,0 +1,27 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: ubi9-minimal
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: '9.4'
+      from:
+        kind: DockerImage
+        name: 'registry.access.redhat.com/ubi9/ubi-minimal:9.4'
+      importPolicy:
+        importMode: Legacy
+        scheduled: true
+      referencePolicy:
+        type: Local
+    - name: latest
+      from:
+        kind: DockerImage
+        name: 'registry.access.redhat.com/ubi9/ubi-minimal:latest'
+      generation: 1
+      importPolicy:
+        scheduled: true
+        importMode: Legacy
+      referencePolicy:
+        type: Local
