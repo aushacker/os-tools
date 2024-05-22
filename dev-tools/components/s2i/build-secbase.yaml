@@ -17,8 +17,8 @@ spec:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: ubi9:latest
+        name: 'ubi9:latest'
   output:
     to:
       kind: ImageStreamTag
-      name: secbase:latest
+      name: 'secbase:latest'
