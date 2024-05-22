@@ -5,3 +5,13 @@ metadata:
 spec:
   lookupPolicy:
     local: true
+  tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: 'image-registry.openshift-image-registry.svc.cluster.local:5000/dev-tools/secbase:latest'
+      importPolicy:
+        importMode: Legacy
+        scheduled: true
+      referencePolicy:
+        type: Local
