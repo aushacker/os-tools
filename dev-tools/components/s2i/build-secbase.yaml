@@ -3,6 +3,7 @@ kind: BuildConfig
 metadata:
   name: build-secbase
 spec:
+  nodeSelector: null
   runPolicy: Serial
   source:
     type: Dockerfile
