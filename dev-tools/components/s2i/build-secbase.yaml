@@ -3,8 +3,9 @@ kind: BuildConfig
 metadata:
   name: build-secbase
 spec:
-  nodeSelector: null
   runPolicy: Serial
+  triggers:
+    - type: ImageChange
   source:
     type: Dockerfile
     dockerfile: |
