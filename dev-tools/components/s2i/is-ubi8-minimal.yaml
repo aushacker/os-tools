@@ -6,10 +6,10 @@ spec:
   lookupPolicy:
     local: false
   tags:
-    - name: '8.9'
+    - name: '8.10'
       from:
         kind: DockerImage
-        name: 'registry.access.redhat.com/ubi8/ubi-minimal:8.9'
+        name: 'registry.access.redhat.com/ubi8/ubi-minimal:8.10'
       importPolicy:
         importMode: Legacy
         scheduled: true
