@@ -1,0 +1,39 @@
+apiVersion: v1
+baseDomain: ocp.lan
+compute: 
+- architecture: amd64
+  name: worker
+  hyperthreading: Enabled
+  replicas: 0 
+controlPlane: 
+  architecture: amd64
+  name: master
+  hyperthreading: Enabled
+  replicas: 3 
+metadata:
+  name: lab # Cluster name
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: x.x.x.x/24
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  none: {}
+fips: false 
+pullSecret: '{"auths":{ ... }}'
+sshKey: 'ssh-ed25519 ...'
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  -----END CERTIFICATE-----
+imageDigestSources:
+# Cut & paste from imageContentSourcePolicy.yaml
+  - mirrors:
+    - <mirrorUrl>:<port>/<repo>/openshift/release
+    source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+  - mirrors:
+    - <mirrorUrl>:<port>/<repo>/openshift/release-images
+    source: quay.io/openshift-release-dev/ocp-release

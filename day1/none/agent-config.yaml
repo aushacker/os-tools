@@ -1,0 +1,112 @@
+apiVersion: v1beta1
+kind: AgentConfig
+metadata:
+  name: lab
+rendezvousIP: x.x.x.1
+#bootArtifactsBaseURL: http://user-specified-infra.com
+#additionalNTPSources:
+#- 0.rhel.pool.ntp.org
+#- 1.rhel.pool.ntp.org
+hosts:
+- hostname: master0
+  role: master
+  # For more information about rootDeviceHints:
+  # https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal_ipi/ipi-install-installation-workflow.html#root-device-hints_ipi-install-installation-workflow
+  #rootDeviceHints:
+  #  deviceName: /dev/sda
+  # interfaces are used to identify the host to apply this configuration to
+  interfaces:
+    - macAddress: 00:00:00:00:00:00
+      name: ens18
+  # networkConfig contains the network configuration for the host in NMState format.
+  # See https://nmstate.io/examples.html for examples.
+  networkConfig:
+    interfaces:
+      - name: ens18
+        type: ethernet
+        state: up
+        mac-address: 00:00:00:00:00:00
+        ipv4:
+          enabled: true
+          address:
+            - ip: x.x.x.1
+              prefix-length: 24
+          dhcp: false
+    dns-resolver:
+      config:
+        server:
+          - x.x.x.x
+    routes:
+      config:
+        - destination: 0.0.0.0/0
+          next-hop-address: x.x.x.x
+          next-hop-interface: ens18
+          table-id: 254
+- hostname: master1
+  role: master
+  # For more information about rootDeviceHints:
+  # https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal_ipi/ipi-install-installation-workflow.html#root-device-hints_ipi-install-installation-workflow
+  #rootDeviceHints:
+  #  deviceName: /dev/sda
+  # interfaces are used to identify the host to apply this configuration to
+  interfaces:
+    - macAddress: 00:00:00:00:00:01
+      name: ens18
+  # networkConfig contains the network configuration for the host in NMState format.
+  # See https://nmstate.io/examples.html for examples.
+  networkConfig:
+    interfaces:
+      - name: ens18
+        type: ethernet
+        state: up
+        mac-address: 00:00:00:00:00:01
+        ipv4:
+          enabled: true
+          address:
+            - ip: x.x.x.x
+              prefix-length: 24
+          dhcp: false
+    dns-resolver:
+      config:
+        server:
+          - x.x.x.x
+    routes:
+      config:
+        - destination: 0.0.0.0/0
+          next-hop-address: x.x.x.x
+          next-hop-interface: ens18
+          table-id: 254
+- hostname: master2
+  role: master
+  # For more information about rootDeviceHints:
+  # https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal_ipi/ipi-install-installation-workflow.html#root-device-hints_ipi-install-installation-workflow
+  #rootDeviceHints:
+  #  deviceName: /dev/sda
+  # interfaces are used to identify the host to apply this configuration to
+  interfaces:
+    - macAddress: 00:00:00:00:00:02
+      name: ens18
+  # networkConfig contains the network configuration for the host in NMState format.
+  # See https://nmstate.io/examples.html for examples.
+  networkConfig:
+    interfaces:
+      - name: ens18
+        type: ethernet
+        state: up
+        mac-address: 00:00:00:00:00:02
+        ipv4:
+          enabled: true
+          address:
+            - ip: x.x.x.x
+              prefix-length: 24
+          dhcp: false
+    dns-resolver:
+      config:
+        server:
+          - x.x.x.x
+    routes:
+      config:
+        - destination: 0.0.0.0/0
+          next-hop-address: x.x.x.x
+          next-hop-interface: ens18
+          table-id: 254
