@@ -1,0 +1,61 @@
+additionalTrustBundlePolicy: Proxyonly
+apiVersion: v1
+baseDomain: ocp.lan
+compute: 
+- architecture: amd64
+  name: worker
+  hyperthreading: Enabled
+  platform: {}
+  replicas: 0 
+controlPlane: 
+  architecture: amd64
+  name: control
+  hyperthreading: Enabled
+  platform: {}
+  replicas: 3 
+metadata:
+  name: lab # Cluster name
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  vsphere:
+    failureDomains: 
+    - name: <failure_domain_name>
+      region: <default_region_name>
+      server: <fully_qualified_domain_name>
+      topology:
+        computeCluster: "/<datacenter>/host/<cluster>"
+        datacenter: <datacenter> 
+        datastore: "/<datacenter>/datastore/<datastore>" 
+        networks:
+        - <VM_Network_name>
+        resourcePool: "/<datacenter>/host/<cluster>/Resources/<resourcePool>" 
+        folder: "/<datacenter_name>/vm/<folder_name>/<subfolder_name>" 
+      zone: <default_zone_name>
+    vcenters:
+    - datacenters:
+      - <datacenter>
+      password: <password> 
+      port: 443
+      server: <fully_qualified_domain_name> 
+      user: administrator@vsphere.local
+    diskType: thin 
+fips: false 
+pullSecret: '{"auths":{"<local_registry>": {"auth": "<credentials>","email": "you@example.com"}}}' 
+sshKey: 'ssh-ed25519 AAAA...' 
+additionalTrustBundle: | 
+  -----BEGIN CERTIFICATE-----
+  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+  -----END CERTIFICATE-----
+imageContentSources: 
+- mirrors:
+  - <mirror_host_name>:<mirror_port>/<repo_name>/release
+  source: <source_image_1>
+- mirrors:
+  - <mirror_host_name>:<mirror_port>/<repo_name>/release-images
+  source: <source_image_2>
