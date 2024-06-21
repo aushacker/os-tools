@@ -7,18 +7,21 @@ storageConfig:
 mirror:
   platform:
     channels:
-    - name: stable-4.14
-      minVersion: 4.14.27
-      maxVersion: 4.14.28
+    - name: stable-4.15
+      minVersion: 4.15.17
+      maxVersion: 4.15.17
       shortestPath: true
       type: ocp
     graph: true
   operators:
-  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.14
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.15
     packages:
+    - name: local-storage-operator
+      channels:
+      - name: stable
     - name: lvms-operator
       channels:
-      - name: stable-4.14
+      - name: stable-4.15
     - name: cluster-logging
       channels:
       - name: stable-5.9
@@ -40,11 +43,12 @@ mirror:
     - name: cincinnati-operator
       channels:
       - name: v1
-  - catalog: registry.redhat.io/redhat/community-operator-index:v4.14
+  - catalog: registry.redhat.io/redhat/community-operator-index:v4.15
     packages:
     - name: external-secrets-operator
       channels:
-      - name: stable
+      - name: alpha
   additionalImages:
+  - name: registry.redhat.io/ubi8/ubi:latest
   - name: registry.redhat.io/ubi9/ubi:latest
   helm: {}
