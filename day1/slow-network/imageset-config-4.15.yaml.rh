@@ -1,0 +1,59 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+storageConfig:
+  local:
+    path: /home/<user>/mirror-rh
+mirror:
+  operators:
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.15
+    packages:
+    - name: local-storage-operator
+      channels:
+      - name: stable
+        minVersion: '4.15.0-202406101406'
+        maxVersion: '4.15.0-202406101406'
+    - name: lvms-operator
+      channels:
+      - name: stable-4.15
+        minVersion: '4.15.4'
+        maxVersion: '4.15.4'
+    - name: cluster-logging
+      channels:
+      - name: stable-5.9
+        minVersion: '5.9.3'
+        maxVersion: '5.9.3'
+    - name: compliance-operator
+      channels:
+      - name: stable
+        minVersion: '1.5.0'
+        maxVersion: '1.5.0'
+    - name: redhat-oadp-operator
+      channels:
+      - name: stable-1.3
+        minVersion: '1.3.2'
+        maxVersion: '1.3.2'
+    - name: openshift-cert-manager-operator
+      channels:
+      - name: stable-v1
+        minVersion: '1.13.1'
+        maxVersion: '1.13.1'
+    - name: openshift-gitops-operator
+      channels:
+      - name: latest
+        minVersion: '1.12.3'
+        maxVersion: '1.12.3'
+    - name: rhacs-operator
+      channels:
+      - name: stable
+        minVersion: '4.4.3'
+        maxVersion: '4.4.3'
+    - name: cincinnati-operator
+      channels:
+      - name: v1
+        minVersion: '5.0.2'
+        maxVersion: '5.0.2'
+    - name: kubernetes-nmstate-operator
+      channels:
+      - name: stable
+        minVersion: '4.15.0-202406060836'
+        maxVersion: '4.15.0-202406060836'

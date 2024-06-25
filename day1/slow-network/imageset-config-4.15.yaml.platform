@@ -1,0 +1,18 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+storageConfig:
+  local:
+    path: /home/<user>/mirror-platform
+mirror:
+  platform:
+    architectures:
+    - amd64
+    channels:
+    - name: stable-4.15
+      minVersion: 4.15.15
+      shortestPath: true
+      type: ocp
+    graph: true
+  additionalImages:
+  - name: registry.redhat.io/ubi8/ubi:latest
+  helm: {}
