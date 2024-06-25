@@ -5,6 +5,8 @@ storageConfig:
     path: /home/<user>/mirror-repo
 mirror:
   platform:
+    architectures:
+    - amd64
     channels:
     - name: stable-4.15
       minVersion: 4.15.15
