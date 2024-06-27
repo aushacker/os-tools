@@ -14,13 +14,13 @@ metadata:
   name: lab # Cluster name
 networking:
   clusterNetwork:
-    - cidr: 10.128.0.0/14
+    - cidr: 10.128.0.0/14 # OpenShift internal addresses, not visible outside the cluster (overlay network)
       hostPrefix: 23
   machineNetwork:
-    - cidr: x.x.x.x/24
+    - cidr: x.x.x.x/24    # External node addresses, visible outside the cluster (underlay network)
   networkType: OVNKubernetes
   serviceNetwork:
-    - 172.30.0.0/16
+    - 172.30.0.0/16       # OpenShift internal addresses, not visible outside the cluster (load balancers)
 platform:
   none: {}
 fips: false
