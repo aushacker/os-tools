@@ -1,0 +1,8 @@
+apiVersion: updateservice.operator.openshift.io/v1
+kind: UpdateService.v1.updateservice.operator.openshift.io
+metadata:
+  name: update-servicee-oc-mirror
+spec:
+  graphDataImage: mirror.example.com:8443/repo/openshift/graph-image@sha256:123456
+  releases: mirror.example.com:8443/repo/openshift/release-images
+  replicas: 2

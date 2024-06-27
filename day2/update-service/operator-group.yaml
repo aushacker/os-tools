@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: UpdateService.v1.updateservice.operator.openshift.io
+  generateName: openshift-update-service-
+  namespace: default
+spec:
+  targetNamespaces:
+    - openshift-update-service
+  upgradeStrategy: Default
