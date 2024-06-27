@@ -10,4 +10,3 @@ spec:
       mappingMethod: claim
       name: htpasswd
       type: HTPasswd
-      

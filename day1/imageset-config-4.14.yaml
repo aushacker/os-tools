@@ -12,6 +12,7 @@ mirror:
       minVersion: 4.14.29
       shortestPath: true
       type: ocp
+    graph: true
   operators:
   - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.14
     packages:
