@@ -1,0 +1,15 @@
+dn: dc=example,dc=lan
+dc: example
+objectClass: domain
+
+dn: ou=Users,dc=example,dc=lan
+objectClass: organizationalUnit
+ou: Users
+
+dn: ou=Groups,dc=example,dc=lan
+objectClass: organizationalUnit
+ou: Groups
+
+dn: ou=System,dc=example,dc=lan
+objectClass: organizationalUnit
+ou: System

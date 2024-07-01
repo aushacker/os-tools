@@ -1,0 +1,24 @@
+dn: cn=Admins,ou=Groups,dc=example,dc=lan
+objectClass: top
+objectClass: groupOfNames
+cn: Admins
+member: uid=admin,ou=Users,dc=example,dc=lan
+
+dn: cn=Developers,ou=Groups,dc=example,dc=lan
+objectClass: top
+objectClass: groupOfNames
+cn: Developers
+member: uid=wile,ou=Users,dc=example,dc=lan
+
+dn: cn=Operations,ou=Groups,dc=example,dc=lan
+objectClass: top
+objectClass: groupOfNames
+cn: Operations
+member: uid=roadrunner,ou=Users,dc=example,dc=lan
+
+dn: cn=DevOps,ou=Groups,dc=example,dc=lan
+objectClass: top
+objectClass: groupOfNames
+cn: Operations
+member: uid=roadrunner,ou=Users,dc=example,dc=lan
+member: uid=wile,ou=Users,dc=example,dc=lan

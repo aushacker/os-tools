@@ -1,0 +1,30 @@
+dn: uid=roadrunner,ou=Users,dc=example,dc=lan
+ou: Users
+uid: roadrunner
+sn: Roadrunner
+cn: Roadrunner
+displayName: Roadrunner
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+
+dn: uid=wile,ou=Users,dc=example,dc=lan
+ou: Users
+uid: wile
+sn: Coyote
+cn: Wile E Coyote
+displayName: Wile E Coyote
+givenName: Wile
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+
+dn: uid=admin,ou=Users,dc=example,dc=lan
+ou: Users
+uid: admin
+sn: Admin
+cn: Admin
+displayName: Admin
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
