@@ -4,7 +4,10 @@ metadata:
   name: cluster
 spec:
   identityProviders:
-    - ldap:
+    - name: ldapidp
+      mappingMethod: claim
+      type: LDAP
+      ldap:
         attributes:
           email:
             - mail
@@ -16,11 +19,8 @@ spec:
             - uid
         bindDN: 'uid=admin,cn=users,dc=example,dc=com'
         bindPassword:
-          name: ldap-admin
+          name: ldap-credentials
         ca:
           name: ldap-ca
         insecure: false
         url: 'ldap://myldap.server.example.com/cn=users,dc=example,dc=com?uid'
-      mappingMethod: claim
-      name: My LDAP
-      type: LDAP

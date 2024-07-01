@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Don't specify a namespace as this overrides ALL namespaces and there
+# are some manifests that must go into openshift-config.
+#namespace: ldap-group-sync
+
+resources:
+  - ../../base
+
+components:
+  - ../../components/ldap
+  - ../../components/ldap-group-sync

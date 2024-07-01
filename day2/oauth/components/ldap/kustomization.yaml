@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - secret-ldap-bind-password.yaml
+  - cm-ldap-ca.yaml
+
+patches:
+  - path: oauth-patch.yaml

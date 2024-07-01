@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - namespace.yaml
+  - service-account.yaml
+  - cluster-role.yaml
+  - cluster-role-binding.yaml
+  - cm-ldap-ca.yaml
+  - cm-ldap-sync-config.yaml
+  - secret-ldap-bind-password.yaml
+  - cron-job.yaml
