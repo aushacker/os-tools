@@ -9,13 +9,13 @@ data:
     apiVersion: v1
     url: ldaps://10.0.0.0:636
     insecure: false
-    bindDN: cn=admin,dc=example,dc=com
+    bindDN: cn=Manager,dc=example,dc=lan
     bindPassword:
       file: "/etc/secrets/bindPassword"
     ca: /etc/ldap-ca/ca.crt
     rfc2307:
       groupsQuery:
-        baseDN: "ou=groups,dc=example,dc=com"
+        baseDN: "ou=Groups,dc=example,dc=lan"
         scope: sub
         filter: "(objectClass=groupOfNames)"
         derefAliases: never
@@ -24,7 +24,7 @@ data:
       groupNameAttributes: [ cn ]
       groupMembershipAttributes: [ member ]
       usersQuery:
-        baseDN: "ou=users,dc=example,dc=com"
+        baseDN: "ou=Users,dc=example,dc=lan"
         scope: sub
         derefAliases: never
         pageSize: 0
