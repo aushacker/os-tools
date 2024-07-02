@@ -18,7 +18,7 @@ spec:
               command:
                 - /bin/bash
                 - -c
-                - oc adm groups sync --sync-config=/etc/config/sync.yaml --confirm
+                - oc adm groups sync --sync-config=/etc/config/sync.yaml --confirm -v 1
               volumeMounts:
                 - mountPath: /etc/config
                   name: ldap-sync-config

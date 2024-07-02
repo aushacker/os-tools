@@ -19,6 +19,6 @@ member: uid=roadrunner,ou=Users,dc=example,dc=lan
 dn: cn=DevOps,ou=Groups,dc=example,dc=lan
 objectClass: top
 objectClass: groupOfNames
-cn: Operations
+cn: DevOps
 member: uid=roadrunner,ou=Users,dc=example,dc=lan
 member: uid=wile,ou=Users,dc=example,dc=lan

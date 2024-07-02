@@ -17,7 +17,7 @@ data:
       groupsQuery:
         baseDN: "ou=groups,dc=example,dc=com"
         scope: sub
-        filter: "(objectClass=groupOfMembers)"
+        filter: "(objectClass=groupOfNames)"
         derefAliases: never
         pageSize: 0
       groupUIDAttribute: dn
