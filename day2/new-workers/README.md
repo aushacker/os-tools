@@ -28,7 +28,12 @@ Check script variables in iso-download.sh, then run the script:
 $ ./iso-download.sh
 ```
 
-Upload the ISO to the hypervisors .iso file library.
+Upload the ISO to the hypervisor .iso file library.
+
+## Nginx Image Location (Optional)
+
+If cluster is in a disconnected environment then edit overlays/basic/kustomization.yaml,
+updating the image location to the air gapped mirror server.
 
 ## Ignition File Configuration
 
@@ -47,7 +52,7 @@ A ConfigMap is used to store the ignition files served up by nginx, this needs t
 ```
 Deploy the HTTP server:
 
-$ oc apply -k overlays/basic
+$ oc create --save-config -k overlays/basic
 
 Check operation:
 
