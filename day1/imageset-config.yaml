@@ -53,5 +53,5 @@ mirror:
   additionalImages:
   - name: registry.redhat.io/ubi8/ubi:latest
   - name: registry.redhat.io/ubi9/ubi:latest
-  - name: docker.io/nginxinc/nginx-unprivileged:stable
+  - name: docker.io/nginxinc/nginx-unprivileged:stable # useful when adding workers to cluster
   helm: {}

@@ -8,7 +8,7 @@ resources:
 
 images:
   - name: nginx
-    newName: mirror.ocp.lan:8443/nginxinc/nginx-unprivileged
+    newName: <mirror-repo>/nginxinc/nginx-unprivileged
     newTag: stable
 
 patches:

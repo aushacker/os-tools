@@ -4,7 +4,7 @@ metadata:
   name: static-content
 data:
   worker.ign: |
-    Insert content here (extract for cluster)...
+    Insert content here (extract from cluster)...
   new-worker.ign: |
     {
       "ignition":{
@@ -12,7 +12,7 @@ data:
         "config":{
           "merge":[
             {
-              "source":"http://ignition-cluster-tools.lab.ocp.lan/worker.ign"
+              "source":"http://ignition-cluster-tools.apps.<cluster-name>.<base-domain>/worker.ign"
             }
           ]
         }
@@ -22,7 +22,7 @@ data:
           {
             "path":"/etc/hostname",
             "contents":{
-              "source":"data:,worker03.lab.ocp.lan" 
+              "source":"data:,<worker-name>.<cluster-name>.<base-domain>" 
             },
             "mode":420,
             "overwrite":true,
