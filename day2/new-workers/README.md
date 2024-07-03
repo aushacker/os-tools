@@ -9,7 +9,7 @@ Supporting code for adding worker nodes to an existing OpenShift cluster. Can
 be applied to Single Node OpenShift (SNO) or disconnected clusters created with
 the agent installer.
 
-Creates an nginx deployment hosting the required ignition files.
+Creates an HTTP server (nginx) hosting the required ignition files.
 
 Instructions for SNO can also be used for clusters created with agent based installer, see https://docs.redhat.com/en/documentation/openshift_container_platform/4.15/html/nodes/worker-nodes-for-single-node-openshift-clusters#sno-adding-worker-nodes-to-single-node-clusters-manually_add-workers
 
@@ -22,17 +22,70 @@ $ git clone https://github.com/aushacker/os-tools.git
 $ cd os-tools/day2/new-workers
 ```
 
-Check script variables in iso-download.sh.
-
-
+Check script variables in iso-download.sh, then run the script:
 
 ```
-
-$ oc extract -n openshift-machine-api secret/worker-user-data-managed --keys=userData --to=- > worker.ign
+$ ./iso-download.sh
 ```
 
-Follow instructions for 
+Upload the ISO to the hypervisors .iso file library.
+
+## Ignition File Configuration
+
+A ConfigMap is used to store the ignition files served up by nginx, this needs to be manually edited:
+
+1. `cat worker.ign`
+1. Copy text to the clipboard
+1. `nano overlays/basic/cm-static-content.yaml`
+1. Paste the copied worker.ign text into the indicated location
+1. Locate the new-worker.ign section
+1. Modify values for cluster-name, base-domain and worker-name
+1. Save & exit
+
+## HTTP Server Deployment
 
 ```
-oc csr
+Deploy the HTTP server:
+
+$ oc apply -k overlays/basic
+
+Check operation:
+
+$ curl http://ignition-cluster-tools.apps.<cluster-name>.<base-domain>/worker.ign
+$ curl http://ignition-cluster-tools.apps.<cluster-name>.<base-domain>/new-worker.ign
+```
+
+## Create Worker
+
+1. Create the new worker VM and assign the downloaded coreos ISO as its boot volume
+1. Start the VM
+1. In the VM console follow the RH docs to optionally configure the networking
+
+```
+With static network:
+
+$ sudo coreos-installer install --copy-network --ignition-url=http://ignition-cluster-tools.apps.<cluster-name>.<base-domain> /dev/sda --insecure-ignition
+
+With dhcp network:
+
+$ sudo coreos-installer install --ignition-url=http://ignition-cluster-tools.apps.<cluster-name>.<base-domain> /dev/sda --insecure-ignition
+
+When the installer completes, reboot.
+```
+
+Wait for certificates (patience required):
+
+```
+$ oc get csr
+
+When Pending requests appear:
+
+$ oc adm certificate approve <csr_name>
+```
+
+## Completion
+
+Test for worker status i.e. Ready:
+```
+$ oc get node
 ```

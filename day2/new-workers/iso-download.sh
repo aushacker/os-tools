@@ -15,9 +15,14 @@ tar zxvf openshift-install-linux.tar.gz
 chmod +x openshift-install
 
 ISO_URL=$(./openshift-install coreos print-stream-json | grep location | grep $ARCH | grep iso | cut -d\" -f4)
+echo
 echo "Iso: $ISO_URL"
 echo
 
 echo "Downloading ISO"
 echo
 curl -L $ISO_URL -o rhcos-live.iso
+
+echo
+echo "Fetching worker.ign from cluster"
+oc extract -n openshift-machine-api secret/worker-user-data-managed --keys=userData --to=- > worker.ign

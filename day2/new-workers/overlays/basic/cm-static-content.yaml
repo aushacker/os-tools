@@ -4,7 +4,7 @@ metadata:
   name: static-content
 data:
   worker.ign: |
-    Insert content here (extract from cluster)...
+    <worker.ign here (hint: paste from clipboard)>
   new-worker.ign: |
     {
       "ignition":{
@@ -22,7 +22,7 @@ data:
           {
             "path":"/etc/hostname",
             "contents":{
-              "source":"data:,<worker-name>.<cluster-name>.<base-domain>" 
+              "source":"data:,<worker-name>.<cluster-name>.<base-domain>"
             },
             "mode":420,
             "overwrite":true,
