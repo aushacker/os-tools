@@ -1,0 +1,33 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: static-content
+data:
+  worker.ign: |
+    Insert content here (extract for cluster)...
+  new-worker.ign: |
+    {
+      "ignition":{
+        "version":"3.2.0",
+        "config":{
+          "merge":[
+            {
+              "source":"http://ignition-cluster-tools.lab.ocp.lan/worker.ign"
+            }
+          ]
+        }
+      },
+      "storage":{
+        "files":[
+          {
+            "path":"/etc/hostname",
+            "contents":{
+              "source":"data:,worker03.lab.ocp.lan" 
+            },
+            "mode":420,
+            "overwrite":true,
+            "path":"/etc/hostname"
+          }
+        ]
+      }
+    }
