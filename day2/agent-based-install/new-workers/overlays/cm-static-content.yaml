@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: static-content
+data:
+  worker.ign: |
+    Insert content here...

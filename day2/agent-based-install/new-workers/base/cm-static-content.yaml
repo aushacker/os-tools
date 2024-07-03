@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: static-content
+data:
+  index.html: |
+    <html>
+      <head><title>Worker Ignition</title></head>
+      <body>
+        <h1>Ignition</h1>
+        <p>Website hosting worker node ignition file.</p>
+      </body>
+    </html>

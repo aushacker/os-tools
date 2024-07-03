@@ -1,0 +1,25 @@
+{
+  "ignition":{
+    "version":"3.2.0",
+    "config":{
+      "merge":[
+        {
+          "source":"<hosted_worker_ign_file>" 
+        }
+      ]
+    }
+  },
+  "storage":{
+    "files":[
+      {
+        "path":"/etc/hostname",
+        "contents":{
+          "source":"data:,<new_fqdn>" 
+        },
+        "mode":420,
+        "overwrite":true,
+        "path":"/etc/hostname"
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ignition
+  labels:
+    app.kubernetes.io/name: ignition
+    app.kubernetes.io/part-of: cluster-tools
+    app.kubernetes.io/component: web
+    app.openshift.io/runtime: nginx
+spec:
+  selector:
+    matchLabels:
+      app: ignition
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ignition
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - name: http
+              containerPort: 8080
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 8080
+              initialDelaySeconds: 3
+              periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 8080
+              initialDelaySeconds: 3
+              periodSeconds: 3
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: static-content
+              mountPath: "/usr/share/nginx/html"
+              readOnly: true
+      volumes:
+      - name: static-content
+        configMap:
+          name: static-content

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+OCP_VERSION=latest-4.15
+ARCH=x86_64
+#ARCH=aarch64
+
+oc extract -n openshift-machine-api secret/worker-user-data-managed --keys=userData --to=- > worker.ign
