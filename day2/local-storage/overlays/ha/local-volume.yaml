@@ -1,12 +1,21 @@
-kind: LocalVolume
 apiVersion: local.storage.openshift.io/v1
+kind: LocalVolume
 metadata:
-  name: local-volume
+  name: local-disks
   namespace: openshift-local-storage
 spec:
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - worker01
+          - worker02
+          - worker03
   storageClassDevices:
-    - devicePaths:
-        - /dev/disk/by-id/ata-crucial
-      fsType: ext4
-      storageClassName: local-storage-blk
+    - storageClassName: local-storage-fs
+      devicePaths:
+        - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
+      fsType: xfs
       volumeMode: Filesystem
