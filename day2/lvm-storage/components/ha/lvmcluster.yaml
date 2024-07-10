@@ -1,0 +1,27 @@
+apiVersion: lvm.topolvm.io/v1alpha1
+kind: LVMCluster
+metadata:
+  name: lvmcluster
+  namespace: openshift-storage
+spec:
+  storage:
+    deviceClasses:
+      - name: vg1
+        fstype: xfs
+        default: true
+        nodeSelector:
+          nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - worker01
+                  - worker02
+                  - worker03
+        deviceSelector:
+          paths:
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
+        thinPoolConfig:
+          name: thin-pool-1
+          overprovisionRatio: 10
+          sizePercent: 90
