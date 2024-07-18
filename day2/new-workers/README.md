@@ -39,12 +39,14 @@ updating the image location to the air gapped mirror server.
 
 A ConfigMap is used to store the ignition files served up by nginx, this needs to be manually edited:
 
-1. `cat worker.ign`
+1. `cat worker.ign` NB - worker.ign is output by iso-download.sh script
 1. Copy text to the clipboard
 1. `nano overlays/basic/cm-static-content.yaml`
 1. Paste the copied worker.ign text into the indicated location
 1. Locate the new-worker.ign section
+1. (Optional) Rename section e.g. WorkerN.ign
 1. Modify values for cluster-name, base-domain and worker-name
+1. (Optional) Copy section WorkerN.ign to WorkerN+1.ign and repeat previous step. This allows for multi-node additions
 1. Save & exit
 
 ## HTTP Server Deployment
