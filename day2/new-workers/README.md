@@ -71,11 +71,11 @@ $ curl http://ignition-cluster-tools.apps.<cluster-name>.<base-domain>/new-worke
 ```
 With static network:
 
-$ sudo coreos-installer install --copy-network --ignition-url=http://ignition-cluster-tools.apps.<cluster-name>.<base-domain> /dev/sda --insecure-ignition
+$ sudo coreos-installer install --copy-network --ignition-url=http://ignition-cluster-tools.apps.<cluster-name>.<base-domain>/new-worker.ign /dev/sda --insecure-ignition
 
 With dhcp network:
 
-$ sudo coreos-installer install --ignition-url=http://ignition-cluster-tools.apps.<cluster-name>.<base-domain> /dev/sda --insecure-ignition
+$ sudo coreos-installer install --ignition-url=http://ignition-cluster-tools.apps.<cluster-name>.<base-domain>/new-worker.ign /dev/sda --insecure-ignition
 
 When the installer completes, reboot.
 ```
