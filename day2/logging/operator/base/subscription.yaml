@@ -6,5 +6,5 @@ metadata:
 spec:
   channel: stable
   name: cluster-logging
-  source: cs-redhat-operators
+  source: cs-redhat-operator-index
   sourceNamespace: openshift-marketplace
