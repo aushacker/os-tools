@@ -9,4 +9,4 @@ resources:
 images:
   - name: nexus
     newName: sonatype/nexus3
-    newTag: 3.64.0
+    newTag: 3.73.0
