@@ -1,0 +1,12 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: goweb
+spec:
+  to:
+    kind: Service
+    name: goweb
+    weight: 100
+  port:
+    targetPort: http
+  wildcardPolicy: None

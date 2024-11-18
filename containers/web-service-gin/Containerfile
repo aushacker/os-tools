@@ -1,0 +1,10 @@
+FROM registry.access.redhat.com/ubi9/ubi-minimal
+
+COPY ./web-service-gin /usr/local/bin
+
+RUN useradd --uid 1000 --no-create-home --gid root web
+
+USER 1000
+EXPOSE 8080
+
+ENTRYPOINT [ "web-service-gin" ]

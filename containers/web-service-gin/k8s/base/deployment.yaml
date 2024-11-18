@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goweb
+  labels:
+    app.kubernetes.io/name: goweb
+    app.kubernetes.io/part-of: os-tools-goweb
+    app.kubernetes.io/component: web
+    app.openshift.io/runtime: go
+spec:
+  selector:
+    matchLabels:
+      app: goweb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: goweb
+    spec:
+      containers:
+        - name: goweb
+          image: goweb
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          ports:
+            - name: http
+              containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+              initialDelaySeconds: 3
+              periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+              initialDelaySeconds: 3
+              periodSeconds: 3
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false

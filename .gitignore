@@ -20,3 +20,6 @@
 **/*.elf
 **/*.hex
 **/*.lst
+
+# Go executables
+**/web-service-gin/web-service-gin
