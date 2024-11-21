@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: aaa
+  name: openjdk-21
+spec:
+  selector:
+    matchLabels:
+      app: openjdk-21
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: openjdk-21
+    spec:
+      containers:
+        - name: openjdk-21
+          image: registry.redhat.io/ubi9/openjdk-21-runtime
+          command:
+            - sleep
+            - infinity
+          resources:
+            requests:
+              cpu: 2000m
+              memory: 4Gi
+            limits:
+              cpu: 2000m
+              memory: 4Gi

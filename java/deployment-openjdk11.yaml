@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: aaa
+  name: openjdk-11
+spec:
+  selector:
+    matchLabels:
+      app: openjdk-11
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: openjdk-11
+    spec:
+      containers:
+        - name: openjdk-11
+          image: registry.redhat.io/ubi9/openjdk-11-runtime
+          command:
+            - sleep
+            - infinity
+          resources:
+            requests:
+              cpu: 2000m
+              memory: 4Gi
+            limits:
+              cpu: 2000m
+              memory: 4Gi
