@@ -3,6 +3,23 @@ FROM docker.io/library/alpine:3.20
 RUN apk add gcc-avr avr-libc make && \
     apk cache clean
 
+# Copy downloaded .atpack files into container
+COPY *.atpack /tmp
+
+# Temporarily extract downloaded files
+RUN mkdir /tmp/extract && \
+    cd /tmp && \
+    for f in *.atpack; do unzip -n -d /tmp/extract $f; done
+
+# Update avr-libc versions and extend
+#RUN cp /tmp/extract/include/avr/* /usr/avr/include/avr/ && \
+RUN cp /tmp/extract/include/avr/* /usr/avr/include/avr/ && \
+    mkdir -p /usr/avr/avrasm/inc && \
+    cp /tmp/extract/avrasm/inc/* /usr/avr/avrasm/inc && \
+    cp -R /tmp/extract/xc8/avr/lib/* /usr/avr/lib
+
+RUN rm -rf tmp/extract
+
 RUN mkdir /work
 WORKDIR /work
 
