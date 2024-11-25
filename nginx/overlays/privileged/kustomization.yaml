@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../base
   - service-account.yaml
-#  - role-binding.yaml
+  - role-binding.yaml
 
 images:
   - name: nginx
