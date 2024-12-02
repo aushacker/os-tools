@@ -1,10 +1,15 @@
-FROM registry.access.redhat.com/ubi9/ubi-minimal
+FROM registry.redhat.io/rhel8/go-toolset:1.22 as build
 
-COPY ./web-service-gin /usr/local/bin
+WORKDIR $APP_ROOT/src
+COPY . .
 
-RUN useradd --uid 1000 --no-create-home --gid root web
+RUN go mod download
+RUN CGO_ENABLED=0 go build
 
-USER 1000
+FROM gcr.io/distroless/static-debian12:nonroot
+
+COPY --from=build /opt/app-root/src/web-service-gin /ws-gin
+
 EXPOSE 8080
 
-ENTRYPOINT [ "web-service-gin" ]
+CMD [ "/ws-gin" ]
