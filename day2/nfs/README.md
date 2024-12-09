@@ -17,6 +17,9 @@ metadata:
 spec:
   capacity:
     storage: 1Gi
+  claimRef:
+    name: pv1
+    namespace: aaa
   nfs:
     server: ocp-svc.home.lab
     path: /shares/static/pv1
@@ -45,5 +48,6 @@ spec:
 
 Notes:
 
+1. The PV provides a claimRef to prevent the PV being claimed by other PVCs
 1. The PVC references the PV through the volumeName field
 1. Empty storageClassName is required to prevent dynamic allocation
