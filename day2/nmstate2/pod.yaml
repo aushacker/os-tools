@@ -1,0 +1,25 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: extra
+  namespace: aaa
+  annotations:
+    k8s.v1.cni.cncf.io/networks: '[
+        {
+          "name": "localnet-network",
+          "ips": [ "192.168.22.2/24" ]
+        }
+      ]'
+spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - resources: {}
+      name: extra
+      command:
+        - sleep
+        - infinity
+      imagePullPolicy: Always
+      image: registry.redhat.io/openshift4/network-tools-rhel9
