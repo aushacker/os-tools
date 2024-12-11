@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: aaa
+  name: foonet-test
+spec:
+  selector:
+    matchLabels:
+      app: foonet-test
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: foonet-test
+      annotations:
+        k8s.v1.cni.cncf.io/networks: foonet
+    spec:
+      containers:
+        - name: foonet-test
+          command:
+            - sleep
+            - infinity
+          imagePullPolicy: Always
+          image: registry.redhat.io/openshift4/network-tools-rhel9
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
