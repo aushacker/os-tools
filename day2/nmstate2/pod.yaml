@@ -4,12 +4,7 @@ metadata:
   name: extra
   namespace: aaa
   annotations:
-    k8s.v1.cni.cncf.io/networks: '[
-        {
-          "name": "localnet-network",
-          "ips": [ "192.168.22.2/24" ]
-        }
-      ]'
+    k8s.v1.cni.cncf.io/networks: localnet-network
 spec:
   securityContext:
     runAsNonRoot: true

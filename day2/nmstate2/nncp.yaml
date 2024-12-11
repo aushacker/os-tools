@@ -6,22 +6,23 @@ spec:
   desiredState:
     interfaces:
       - bridge:
-          allow-extra-patch-ports: true
+          #allow-extra-patch-ports: true
           options:
             stp: false
-          port:
-            - name: ens19
-            - name: ovs-br1
+          port: []
+            #- name: ens19
+            #- name: ovs-br1
         description: |-
-          A dedicated OVS bridge with ens119 as a port
+          A dedicated OVS bridge with ens19 as a port
           allowing all VLANs and untagged traffic
         name: ovs-br1
-        state: up
+        state: absent
         type: ovs-bridge
     ovn:
       bridge-mappings:
         - bridge: ovs-br1
           localnet: localnet2
-          state: present
+          #state: present
+          state: absent
   nodeSelector:
     node-role.kubernetes.io/worker: ''
