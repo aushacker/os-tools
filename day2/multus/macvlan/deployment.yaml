@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: aaa
+  name: macvlan-test
+spec:
+  selector:
+    matchLabels:
+      app: macvlan-test
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: macvlan-test
+      annotations:
+        k8s.v1.cni.cncf.io/networks: macvlan-ens19
+    spec:
+      containers:
+        - name: macvlan-test
+          command:
+            - sleep
+            - infinity
+          imagePullPolicy: Always
+          image: registry.redhat.io/openshift4/network-tools-rhel9
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%

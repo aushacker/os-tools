@@ -1,0 +1,21 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: macvlan-ens19
+  namespace: aaa
+spec:
+  config: |2
+    {
+      "cniVersion": "0.3.1",
+      "name": "macvlan-test",
+      "plugins": [
+        {
+          "type": "macvlan", 
+          "master": "ens19", 
+          "mode": "bridge", 
+          "ipam": {
+            "type": "dhcp"
+          }
+        }
+      ]
+    }
