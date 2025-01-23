@@ -25,4 +25,3 @@ spec:
      - application
      outputRefs:
      - syslog
-     - default
