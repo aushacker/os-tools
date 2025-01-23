@@ -3,8 +3,10 @@ kind: Subscription
 metadata:
   name: cluster-logging
   namespace: openshift-logging
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   channel: stable
   name: cluster-logging
-  source: cs-redhat-operator-index
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
