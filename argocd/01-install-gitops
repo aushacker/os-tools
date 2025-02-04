@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#
+# Install the OpenShift GitOps Operator using the documented 1.15 CLI procedure.
+#
+# Assumes user is logged in as cluster-admin.
+#
+
+ns=openshift-gitops-operator
+
+oc get namespace $ns
+
+if [ "$?" -eq "0" ]; then
+    echo -e "\nGitOps operator namespace already exists"
+    exit 1
+else
+    echo -e "\nCreating namespace\n"
+    oc create namespace $ns
+
+    if [ "$?" -ne "0" ]; then
+        echo -e "\nNamespace creation failed"
+        exit 1
+    fi
+
+    echo -e "\nEnable namespace monitoring\n"
+    oc label namespace $ns openshift.io/cluster-monitoring=true
+
+    if [ "$?" -ne "0" ]; then
+        echo -e "\nNamespace labelling failed"
+        oc delete namespace $ns
+        exit 1
+    fi
+
+    echo -e "\nCreating OperatorGroup\n"
+    oc apply -f bootstrap/operator-group.yaml
+
+    if [ "$?" -ne "0" ]; then
+        echo -e "\nOperatorGroup creation failed"
+        oc delete namespace $ns
+        exit 1
+    fi
+
+    echo -e "\nInstalling operator\n"
+    oc apply -f bootstrap/subscription-gitops.yaml
+
+fi

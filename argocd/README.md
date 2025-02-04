@@ -4,7 +4,7 @@ December 2023
 
 ## Operator Installation
 
-`oc apply -f bootstrap/subscription-gitops.yaml`
+`./01-install-gitops`
 
 Login using the hardcoded admin account. Password is found in Secret
 openshift-gitops/openshift-gitops-cluster.
