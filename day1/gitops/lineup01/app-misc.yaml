@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: miscellaneous
-  namespace: openshift-gitops
+  namespace: openshift
 spec:
   destination:
     server: 'https://kubernetes.default.svc'
