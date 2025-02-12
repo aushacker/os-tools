@@ -1,0 +1,90 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+storageConfig:
+  local:
+    path: ./mirror-repo
+mirror:
+  platform:
+    architectures:
+      - amd64
+    channels:
+      - name: eus-4.16
+        minVersion: 4.16.32
+        maxVersion: 4.16.32
+        shortestPath: true
+        type: ocp
+    graph: true
+  operators:
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.16
+      packages:
+        - name: advanced-cluster-management
+          channels:
+            - name: release-2.12
+              minVersion: '2.12.2'
+              maxVersion: '2.12.2'
+        - name: cincinnati-operator
+          channels:
+            - name: v1
+              minVersion: '5.0.3'
+              maxVersion: '5.0.3'
+        - name: cluster-logging
+          channels:
+            - name: stable-6.1
+              minVersion: '6.1.1'
+              maxVersion: '6.1.1'
+        - name: cluster-observability-operator
+          channels:
+            - name: development
+              minVersion: '0.4.1'
+              maxVersion: '0.4.1'
+        - name: compliance-operator
+          channels:
+            - name: stable
+              minVersion: '1.6.1'
+              maxVersion: '1.6.1'
+        - name: kubernetes-nmstate-operator
+          channels:
+            - name: stable
+              minVersion: '4.16.0-202501281135'
+              maxVersion: '4.16.0-202501281135'
+        - name: metallb-operator
+          channels:
+            - name: stable
+              minVersion: '4.16.0-202501232204'
+              maxVersion: '4.16.0-202501232204'
+        - name: multicluster-engine
+          channels:
+            - name: stable-2.7
+              minVersion: '2.7.3'
+              maxVersion: '2.7.3'
+        - name: odr-cluster-operator
+          channels:
+            - name: stable-4.16
+              minVersion: '4.16.7-rhodf'
+              maxVersion: '4.16.7-rhodf'
+        - name: openshift-gitops-operator
+          channels:
+            - name: latest
+              minVersion: '1.15.0+0.1738074324.p'
+              maxVersion: '1.15.0+0.1738074324.p'
+        - name: redhat-oadp-operator
+          channels:
+            - name: stable-1.4
+              minVersion: '1.4.2'
+              maxVersion: '1.4.2'
+        - name: rhacs-operator
+          channels:
+            - name: stable
+              minVersion: '4.6.2'
+              maxVersion: '4.6.2'
+    - catalog: registry.redhat.io/redhat/certified-operator-index:v4.16
+      packages:
+        - name: vault-secrets-operator
+          channels:
+            - name: stable
+              minVersion: '0.9.1'
+              maxVersion: '0.9.1'
+  additionalImages:
+    - name: registry.redhat.io/ubi8/ubi
+    - name: registry.redhat.io/openshift4/ose-cli
+  helm: {}
