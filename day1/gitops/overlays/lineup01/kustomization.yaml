@@ -4,3 +4,4 @@ kind: Kustomization
 components:
   - ../../components/logging
   - ../../components/miscellaneous
+  - ../../components/acm
