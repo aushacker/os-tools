@@ -1,0 +1,12 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleNotification
+metadata:
+  name: example
+spec:
+  text: OpenShift Lab
+  location: BannerTop 
+#  link:
+#    href: 'https://www.example.com'
+#    text: Optional link text
+  color: '#fff'
+  backgroundColor: '#0088ce'
