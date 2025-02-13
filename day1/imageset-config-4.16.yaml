@@ -22,6 +22,11 @@ mirror:
             - name: release-2.12
               minVersion: '2.12.2'
               maxVersion: '2.12.2'
+        - name: ansible-automation-platform-operator
+          channels:
+            - name: stable-2.5
+              minVersion: '2.5.0+0.1737675968'
+              maxVersion: '2.5.0+0.1737675968'
         - name: cincinnati-operator
           channels:
             - name: v1
