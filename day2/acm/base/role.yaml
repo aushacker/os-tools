@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: gitops-admin
+  namespace: advanced-cluster-management
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "3"
+rules:
+- apiGroups: ["operator.open-cluster-management.io"]
+  resources: ["*"]
+  verbs: ["*"]
