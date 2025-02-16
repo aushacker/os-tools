@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: openshift-storage
   labels:
+    argocd.argoproj.io/managed-by: openshift-gitops
     openshift.io/cluster-monitoring: "true"
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/audit: privileged
