@@ -1,11 +1,12 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: acm-operator-subscription
-  namespace: advanced-cluster-management
+  name: advanced-cluster-management
+  namespace: open-cluster-management
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
+  channel: patch-me-see-overlays-dir
   sourceNamespace: openshift-marketplace
   source: redhat-operators
   installPlanApproval: Automatic

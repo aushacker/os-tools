@@ -2,9 +2,9 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: advanced-cluster-management
-  namespace: advanced-cluster-management
+  namespace: open-cluster-management
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   targetNamespaces:
-    - advanced-cluster-management
+    - open-cluster-management
