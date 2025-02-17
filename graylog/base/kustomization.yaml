@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - statefulset-mongo.yaml
-#  - service.yaml
+  - service-mongo.yaml
 #  - route.yaml
