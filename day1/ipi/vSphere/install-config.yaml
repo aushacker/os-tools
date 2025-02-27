@@ -1,0 +1,65 @@
+apiVersion: v1
+baseDomain: example.com
+compute:
+  - architecture: amd64
+    name: worker
+    platform: {}
+    replicas: 3
+controlPlane:
+  architecture: amd64
+  name: control
+  platform: {}
+  replicas: 3
+metadata:
+  creationTimestamp: null
+  name: test
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: 10.0.0.0/16
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16
+platform:
+  vsphere:
+    apiVIPs:
+      - 10.0.0.1
+    failureDomains:
+      - name: <failure_domain_name>
+        region: <default_region_name>
+        server: <fully_qualified_domain_name>
+        topology:
+          computeCluster: "/<data_center>/host/<cluster>"
+          datacenter: <data_center>
+          datastore: "/<data_center>/datastore/<datastore>"
+          networks:
+            - <VM_Network_name>
+          resourcePool: "/<data_center>/host/<cluster>/Resources/<resourcePool>"
+          folder: "/<data_center_name>/vm/<folder_name>/<subfolder_name>"
+          tagIDs:
+            - <tag_id>
+        zone: <default_zone_name>
+    ingressVIPs:
+      - 10.0.0.2
+    vcenters:
+      - datacenters:
+        - <data_center>
+        password: <password>
+        port: 443
+        server: <fully_qualified_domain_name>
+        user: administrator@vsphere.local
+    diskType: thin
+fips: false
+pullSecret: '{"auths": ...}'
+sshKey: 'ssh-ed25519 AAAA...'
+proxy:
+  httpProxy: http://<username>:<pswd>@<ip>:<port>
+  httpsProxy: https://<username>:<pswd>@<ip>:<port>
+  noProxy: example.com
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  <MY_TRUSTED_CA_CERT>
+  -----END CERTIFICATE-----
+additionalTrustBundlePolicy: <Proxyonly|Always>
