@@ -4,4 +4,6 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - subscription.yaml
+  - clusterlogging.yaml
   - clusterlogfwd.yaml
