@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/aushacker/os-tools.git
     targetRevision: HEAD
-    path: day2/logging/resources/overlays/stable
+    path: day2/logging/resources/overlays/stable-5.9
   destination:
     namespace: openshift-logging
     server: https://kubernetes.default.svc
