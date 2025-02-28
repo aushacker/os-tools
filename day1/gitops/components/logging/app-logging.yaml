@@ -9,6 +9,6 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: day2/logging/resources/overlays/stable-5.9
+    path: day2/logging/resources/overlays/stable-5.8
     repoURL: 'https://github.com/aushacker/os-tools.git'
     targetRevision: HEAD
