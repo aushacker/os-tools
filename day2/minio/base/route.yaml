@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: minio
+  labels:
+    app: minio
+spec:
+  host: minio-minio.apps.sno.home.lab
+  to:
+    kind: Service
+    name: minio
+    weight: 100
+  port:
+    targetPort: http
