@@ -1,0 +1,8 @@
+[allowlist]
+description = "Global Allowlist"
+
+paths = [
+  # Ignore test Secrets
+  '''day2\/logging\/resources\/overlays\/stable-6.1\/secret-s3.yaml$''',
+  '''day2\/minio\/overlays\/stable-test\/secret.yaml$''',
+]
