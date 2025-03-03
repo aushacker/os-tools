@@ -7,6 +7,9 @@ resources:
   - ../../base
 
 images:
+  - name: graylog
+    newName: graylog/graylog
+    newTag: 6.1
   - name: mongodb
     newName: mongodb/mongodb-community-server
     newTag: latest

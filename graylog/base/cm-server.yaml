@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graylog-config
+data:
+  server.conf: |
+    is_leader = true
+    password_secret = IJxZ6UhKZEtUBAUAQHWjOgwOsxTFk1fPS6pylRiU1oALLhj93g1stAVkSNkyBpFCz4KniT054s0XWluXDOvLX7PlX5IwpYAu
+    root_username = admin
+    # password
+    root_password_sha2 = 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+    root_timezone = UTC
+
+    mongo_uri = mongodb://grayloguser:secret@mongodb:27017/graylog

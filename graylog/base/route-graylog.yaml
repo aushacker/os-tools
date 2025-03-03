@@ -1,11 +1,11 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: nginx
+  name: graylog
 spec:
   to:
     kind: Service
-    name: nginx
+    name: graylog
     weight: 100
   port:
     targetPort: http

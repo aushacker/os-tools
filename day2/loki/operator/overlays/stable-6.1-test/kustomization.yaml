@@ -4,9 +4,6 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - secret-s3.yaml
-  - lokistack.yaml
-  - serviceaccount.yaml
 
 patches:
   - path: subscription-patch.yaml
