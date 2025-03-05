@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsyslog
+  labels:
+    app.kubernetes.io/name: rsyslog
+    app.kubernetes.io/part-of: rsyslog
+    app.kubernetes.io/component: backend
+    app.openshift.io/runtime: redhat
+spec:
+  selector:
+    matchLabels:
+      app: rsyslog
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        openshift.io/required-scc: anyuid
+      labels:
+        app: rsyslog
+    spec:
+      containers:
+        - name: rsyslog
+          image: rsyslog
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          ports:
+            - containerPort: 514  # Syslog TCP
+          volumeMounts:
+            - name: rsyslog-config
+              mountPath: /etc/rsyslog.conf
+              subPath: rsyslog.conf
+      securityContext:
+        privileged: false
+        allowPrivilegeEscalation: false
+        runAsUser: 0
+        runAsGroup: 0
+      serviceAccountName: rsyslog
+      volumes:
+        - name: rsyslog-config
+          configMap:
+            name: rsyslog-config
+            items:
+              - key: rsyslog.conf
+                path: rsyslog.conf

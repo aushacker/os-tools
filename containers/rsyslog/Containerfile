@@ -1,0 +1,7 @@
+FROM registry.access.redhat.com/ubi9-init
+
+RUN dnf upgrade -y && \
+    dnf install -y --setopt=tsflags=nodocs rsyslog --exclude container-selinux && \
+    dnf clean all
+
+RUN systemctl enable rsyslog
