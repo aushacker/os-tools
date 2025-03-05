@@ -1,0 +1,22 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: logging
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  outputs:
+    - name: logging-syslog
+      syslog:
+        rfc: RFC5424
+        url: 'tcp://rsyslog.aaa:514'
+      type: syslog
+  pipelines:
+    - inputRefs:
+        - application
+        - infrastructure
+      name: logs-to-syslog
+      outputRefs:
+        - logging-syslog
+  serviceAccount:
+    name: log-collector
