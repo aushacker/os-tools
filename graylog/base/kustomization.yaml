@@ -3,8 +3,13 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - cm-mongo.yaml
   - statefulset-mongo.yaml
   - service-mongo.yaml
+  - secret-graylog.yaml
+  - secret-mongo.yaml
+  - serviceaccount.yaml
   - deployment-graylog.yaml
+  - deployment-graylog-dn.yaml
   - service-graylog.yaml
   - route-graylog.yaml

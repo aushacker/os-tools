@@ -8,8 +8,11 @@ resources:
 
 images:
   - name: graylog
-    newName: graylog/graylog
-    newTag: 6.1
+    newName: docker.io/graylog/graylog
+    newTag: '6.1'
+  - name: graylog-datanode
+    newName: docker.io/graylog/graylog-datanode
+    newTag: '6.1'
   - name: mongodb
-    newName: mongodb/mongodb-community-server
+    newName: docker.io/mongodb/mongodb-community-server
     newTag: latest

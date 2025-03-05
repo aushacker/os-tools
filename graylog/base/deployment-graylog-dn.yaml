@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graylog-datanode
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"StatefulSet","name":"mongodb"}]'
+  labels:
+    app.kubernetes.io/name: graylog-datanode
+    app.kubernetes.io/part-of: graylog
+    app.kubernetes.io/component: backend
+    app.openshift.io/runtime: java
+spec:
+  selector:
+    matchLabels:
+      app: graylog
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        openshift.io/required-scc: anyuid
+      labels:
+        app: graylog
+    spec:
+      containers:
+        - name: graylog-datanode
+          image: graylog-datanode
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          env:
+            - name: GRAYLOG_DATANODE_NODE_ID_FILE
+              value: "/var/lib/graylog-datanode/node-id"
+            - name: GRAYLOG_DATANODE_NODE_NAME
+              value: graylog-datanode
+            - name: GRAYLOG_DATANODE_PASSWORD_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: graylog-credentials
+                  key: password
+            - name: GRAYLOG_DATANODE_MONGODB_URI
+              value: "mongodb://graylog:password@mongodb:27017/graylog"
+          ports:
+            - containerPort: 8999  # Datanode API
+              protocol: TCP
+            - containerPort: 9200
+              protocol: TCP
+            - containerPort: 9300
+              protocol: TCP
+#          securityContext:
+#            capabilities:
+#              add:
+#                - NET_BIND_SERVICE
+#          livenessProbe:
+#            httpGet:
+#              path: /index.html
+#              port: 8080
+#              initialDelaySeconds: 3
+#              periodSeconds: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /index.html
+#              port: 8080
+#              initialDelaySeconds: 3
+#              periodSeconds: 3
+      securityContext:
+        privileged: false
+        allowPrivilegeEscalation: false
+        runAsUser: 0
+        runAsGroup: 0
+      serviceAccountName: graylog

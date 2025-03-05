@@ -18,20 +18,16 @@ spec:
       labels:
         app: mongodb
     spec:
-#      serviceAccountName: sa-mongodb
-#      securityContext:
-#        runAsUser: 999
-#        allowPrivilegeEscalation: false
-#        runAsNonRoot: true
       containers:
         - name: mongo
           image: mongodb
           imagePullPolicy: Always
           env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              value: root
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              value: example
+            - name: MONGODB_INITDB_DATABASE
+              value: graylog
+          envFrom:
+            - secretRef:
+                name: mongodb-credentials
           ports:
             - name: mongodb
               containerPort: 27017
@@ -41,9 +37,35 @@ spec:
               memory: 256Mi
             limits:
               memory: 2Gi
+          livenessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - db.adminCommand('ping')
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - db.adminCommand('ping')
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           volumeMounts:
             - name: data
               mountPath: /data/db
+            - name: mongodb-init
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mongodb-init
+          configMap:
+            name: mongodb-init
   volumeClaimTemplates:
     - metadata:
         name: data
