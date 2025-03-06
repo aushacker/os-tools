@@ -7,4 +7,5 @@ resources:
   - clusterlogforwarder.yaml
 
 components:
+  - ../../components/v6.1
   - ../../components/v6.x-rbac-base
