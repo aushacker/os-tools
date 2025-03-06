@@ -6,7 +6,7 @@ resources:
   - ../../base
   - secret-s3.yaml
   - lokistack.yaml
-  - serviceaccount.yaml
 
-patches:
-  - path: subscription-patch.yaml
+components:
+  - ../../components/v6.1
+  - ../../components/v6.x-rbac-base
