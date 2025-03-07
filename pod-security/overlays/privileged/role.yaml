@@ -3,7 +3,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: use-scc-privileged
 rules:
-  - apiGroups: ["security.openshift.io"]
-    resources: ["securitycontextconstraints"]
-    resourceNames: ["privileged"]
-    verbs: ["use"]
+  - apiGroups:
+      - security.openshift.io
+    resources:
+      - securitycontextconstraints
+    resourceNames:
+      - privileged
+    verbs:
+      - use

@@ -1,11 +1,12 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: use-scc-anyuid2
+  name: use-scc-anyuid
 subjects:
   - kind: ServiceAccount
     name: sa-sec
+    namespace: default
 roleRef:
-  kind: Role
-  name: use-scc-anyuid2
   apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: use-scc-anyuid

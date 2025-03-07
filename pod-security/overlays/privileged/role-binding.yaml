@@ -5,7 +5,8 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: sa-sec
+    namespace: default
 roleRef:
+  apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: use-scc-privileged
-  apiGroup: rbac.authorization.k8s.io
