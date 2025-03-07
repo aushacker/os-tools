@@ -3,9 +3,10 @@ kind: Kustomization
 
 resources:
   - deployment.yaml
-  - rb-anyuid.yaml
-  - serviceaccount.yaml
+  - role.yaml
+  - rolebinding.yaml
   - service.yaml
+  - serviceaccount.yaml
 
 configMapGenerator:
 - name: rsyslog-config
