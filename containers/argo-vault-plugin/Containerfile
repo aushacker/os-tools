@@ -1,0 +1,19 @@
+FROM registry.access.redhat.com/ubi8-minimal
+
+# --- Original comment---
+# Install tools needed for your repo-server to retrieve & decrypt secrets, render manifests
+# (e.g. awscli, gpg, sops)
+# --- Original comment---
+# ubi8 already contains gpg. RH repos do not have awscli.
+#RUN dnf upgrade -y && \
+#    dnf install -y awscli gpg && \
+#    dnf clean all
+
+# Install the AVP plugin (as root so we can copy to /usr/local/bin)
+ENV AVP_VERSION=1.18.1
+ENV BIN=argocd-vault-plugin
+RUN curl -L -o ${BIN} https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v${AVP_VERSION}/argocd-vault-plugin_${AVP_VERSION}_linux_amd64
+RUN chmod +x ${BIN}
+RUN mv ${BIN} /usr/local/bin
+
+USER 1000
