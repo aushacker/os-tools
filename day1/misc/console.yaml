@@ -1,7 +1,7 @@
 apiVersion: console.openshift.io/v1
 kind: ConsoleNotification
 metadata:
-  name: example
+  name: console-banner
 spec:
   text: OpenShift Lab
   location: BannerTop 
