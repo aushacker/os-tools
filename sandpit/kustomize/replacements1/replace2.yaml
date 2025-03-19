@@ -1,0 +1,10 @@
+source:
+  kind: Namespace
+  fieldPath: metadata.name
+targets:
+  - select:
+      kind: ConfigMap
+    fieldPaths:
+      - metadata.labels.missing
+    options:
+      create: false
