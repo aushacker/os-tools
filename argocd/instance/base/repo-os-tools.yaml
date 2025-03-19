@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: repo-os-tools
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: aushacker/os-tools
+  project: default
+  url: https://github.com/aushacker/os-tools.git
