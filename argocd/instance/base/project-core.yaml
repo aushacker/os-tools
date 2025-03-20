@@ -1,0 +1,8 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: core
+spec:
+  sourceRepos:
+    - 'https://github.com/aushacker/os-tools.git'
+status: {}

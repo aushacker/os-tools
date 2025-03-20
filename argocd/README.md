@@ -1,10 +1,18 @@
 # OpenShift GitOps
 Aushacker</br>
-December 2023
+March 2025
 
 ## Operator Installation
 
+Installs the OpenShift GitOps operator from bootstrap.
+
 `./01-install-gitops`
+
+NB. No default ArgoCD instance.
+
+## ArgoCD Instance Creation
+
+`oc apply -k overlays\core`
 
 Login using the hardcoded admin account. Password is found in Secret
 openshift-gitops/openshift-gitops-cluster.
@@ -14,7 +22,7 @@ openshift-gitops/openshift-gitops-cluster.
 Repositories can be created via UI using the admin account or
 via an appropriately annotated Secret.
 
-`oc apply -f repos/repo-os-tools.yaml`
+See base/repo-os-tools.yaml.
 
 ## Application Deployment
 

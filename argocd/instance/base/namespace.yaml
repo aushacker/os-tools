@@ -3,4 +3,5 @@ kind: Namespace
 metadata:
   name: default
   labels:
+    argocd.argoproj.io/managed-by: openshift-gitops
     openshift.io/cluster-monitoring: 'true'

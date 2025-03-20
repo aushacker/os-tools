@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  name: openshift-gitops
+  namespace: openshift-gitops
+spec:
+  repo:
+    serviceaccount: vault-plugin
+    mountsatoken: true
+    volumes:
+      - configMap:
+          name: cmp-plugin
+        name: cmp-plugin
+    # This is our sidecar container spec for the vault plugin
+    # Specifically note the mounting of our vault config env vars
+    # via secretRef.
+    sidecarContainers:
+      - name: avp
+        command:
+          - /var/run/argocd/argocd-cmp-server
+        envFrom:
+          - secretRef:
+              name: vault-configuration
+        image: quay.io/sdavies/avp:1.18.1
+        securityContext:
+          runAsNonRoot: true
+        volumeMounts:
+          - mountPath: /var/run/argocd
+            name: var-files
+          - mountPath: /home/argocd/cmp-server/plugins
+            name: plugins
+          - mountPath: /tmp
+            name: tmp
+
+          # Register plugins into sidecar
+          - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+            subPath: avp.yaml
+            name: cmp-plugin
