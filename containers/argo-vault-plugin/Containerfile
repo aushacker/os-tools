@@ -6,7 +6,7 @@ FROM registry.access.redhat.com/ubi9-minimal
 # --- Original comment---
 # ubi8 already contains gpg. RH repos do not have awscli.
 RUN microdnf upgrade -y && \
-    microdnf install -y findutils && \
+    microdnf install -y findutils git && \
     microdnf clean all
 
 # Install the AVP plugin (as root so we can copy to /usr/local/bin)

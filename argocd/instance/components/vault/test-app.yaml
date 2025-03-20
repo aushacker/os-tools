@@ -8,6 +8,7 @@ spec:
     repoURL: https://github.com/aushacker/os-tools.git
     targetRevision: HEAD
     path: argocd/test-vault
+    plugin: {}
   destination:
     server: https://kubernetes.default.svc
     namespace: openshift-gitops

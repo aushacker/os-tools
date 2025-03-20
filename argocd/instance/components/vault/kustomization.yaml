@@ -5,7 +5,7 @@ resources:
   - cm-plugin.yaml
   - service-account.yaml
   - secret-vault-configuration.yaml
-#  - test-app.yaml
+  - test-app.yaml
 
 patches:
   - path: patch-argocd.yaml

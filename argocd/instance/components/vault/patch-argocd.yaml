@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   repo:
-    serviceaccount: vault-plugin
+    serviceaccount: vplugin
     mountsatoken: true
     volumes:
       - configMap:
@@ -16,12 +16,12 @@ spec:
     # via secretRef.
     sidecarContainers:
       - name: avp
-        command:
-          - /var/run/argocd/argocd-cmp-server
+        command: [/var/run/argocd/argocd-cmp-server]
         envFrom:
           - secretRef:
               name: vault-configuration
         image: quay.io/sdavies/avp:1.18.1
+        imagePullPolicy: Always
         securityContext:
           runAsNonRoot: true
         volumeMounts:
