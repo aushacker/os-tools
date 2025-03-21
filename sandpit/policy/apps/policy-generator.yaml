@@ -8,8 +8,8 @@ policyDefaults:
 policies:
   - name: app-nginx
     manifests:
-      - path: namespace.yaml
-      - path: cm-static-content.yaml
-      - path: deployment.yaml
-      - path: service.yaml
-      - path: route.yaml
+      - path: nginx/namespace.yaml
+      - path: nginx/cm-static-content.yaml
+      - path: nginx/deployment.yaml
+      - path: nginx/service.yaml
+      - path: nginx/route.yaml

@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: config-infra-policies
+policyDefaults:
+  namespace: policies
+  remediationAction: enforce
+policies:
+  - name: infra-oauth-ldap
+    manifests:
+      - path: ldap/cm-ldap-ca.yaml
+      - path: ldap/secret-bind-password.yaml
+      - path: ldap/oauth-patch.yaml

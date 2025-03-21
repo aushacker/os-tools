@@ -1,0 +1,28 @@
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true,Validate=false
+spec:
+  identityProviders:
+    - name: ldapidp
+      mappingMethod: claim
+      type: LDAP
+      ldap:
+        attributes:
+          email:
+            - mail
+          id:
+            - dn
+          name:
+            - cn
+          preferredUserName:
+            - uid
+        bindDN: 'uid=admin,cn=users,dc=example,dc=com'
+        bindPassword:
+          name: ldap-credentials
+        ca:
+          name: ldap-ca
+        insecure: false
+        url: 'ldap://myldap.server.example.com/cn=users,dc=example,dc=com?uid'
