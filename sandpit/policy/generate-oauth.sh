@@ -1,3 +1,3 @@
 #!/bin/bash
 
-kustomize build --enable-alpha-plugins generator2
+kustomize build --enable-alpha-plugins infra-oauth
