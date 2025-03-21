@@ -1,0 +1,14 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: static-content
+data:
+  index.html: |
+    <html>
+      <head><title>My Website</title></head>
+      <body>
+        <h1>Home Page</h1>
+        <p>Hello World!</p>
+      </body>
+    </html>
+ 
