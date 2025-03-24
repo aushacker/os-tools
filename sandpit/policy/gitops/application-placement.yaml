@@ -4,7 +4,7 @@ metadata:
   name: placements
   namespace: policies
 spec:
-  project: core
+  project: default
   source:
     repoURL: https://github.com/aushacker/os-tools.git
     targetRevision: HEAD
