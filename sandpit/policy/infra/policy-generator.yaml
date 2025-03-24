@@ -5,6 +5,11 @@ metadata:
 policyDefaults:
   namespace: policies
   remediationAction: enforce
+  placement:
+    placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
+    #placementName: foo                          # no Placement
+policySetDefaults:
+  generatePolicySetPlacement: false
 policies:
   - name: infra-oauth-ldap
     manifests:
