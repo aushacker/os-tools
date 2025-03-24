@@ -5,4 +5,6 @@ namespace: policies
 
 resources:
   - namespace.yaml
-  - place-foo.yaml
+  - place-all.yaml
+  - place-dev.yaml
+  - place-prod.yaml
