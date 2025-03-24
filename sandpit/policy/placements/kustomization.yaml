@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: policies
 
 resources:
-  - namespace.yaml
-  - application-placement.yaml
+  - place-foo.yaml

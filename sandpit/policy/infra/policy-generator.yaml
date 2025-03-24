@@ -7,7 +7,7 @@ policyDefaults:
   remediationAction: enforce
   placement:
     placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
-    #placementName: foo                          # no Placement
+    #placementName: foo                          # no Placement generated, must alreday exist
 policySetDefaults:
   generatePolicySetPlacement: false
 policies:
