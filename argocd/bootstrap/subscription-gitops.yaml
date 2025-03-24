@@ -14,4 +14,6 @@ spec:
     - name: DISABLE_DEFAULT_ARGOCD_CONSOLELINK
       value: 'true'
     - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
-      value: 'true'
+      value: 'false'
+    - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+      value: openshift-gitops
