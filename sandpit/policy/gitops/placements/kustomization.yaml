@@ -8,3 +8,6 @@ resources:
   - place-all.yaml
   - place-dev.yaml
   - place-prod.yaml
+  - mcsb-all.yaml
+  - mcsb-dev.yaml
+  - mcsb-prod.yaml

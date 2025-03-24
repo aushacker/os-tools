@@ -11,4 +11,4 @@ spec:
     path: sandpit/policy/gitops/clusterSets
   destination:
     server: https://kubernetes.default.svc
-    namespace: policies
+    namespace: openshift-gitops

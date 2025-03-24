@@ -3,6 +3,8 @@ kind: Placement
 metadata:
   name: dev-clusters
   namespace: policies
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   clusterSets:
     - dev
