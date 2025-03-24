@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/aushacker/os-tools.git
     targetRevision: HEAD
-    path: sandpit/policy/gitops/placements
+    path: sandpit/policy/placements
   destination:
     server: https://kubernetes.default.svc
     namespace: policies
