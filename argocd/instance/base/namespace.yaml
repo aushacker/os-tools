@@ -4,4 +4,5 @@ metadata:
   name: default
   labels:
     argocd.argoproj.io/managed-by: openshift-gitops
+    openshift-gitops-operator: "true"
     openshift.io/cluster-monitoring: 'true'

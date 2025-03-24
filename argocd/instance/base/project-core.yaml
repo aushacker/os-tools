@@ -3,6 +3,9 @@ kind: AppProject
 metadata:
   name: core
 spec:
+  destinations:
+    - namespace: policies
+      server: https://kubernetes.default.svc
   sourceRepos:
     - 'https://github.com/aushacker/os-tools.git'
 status: {}
