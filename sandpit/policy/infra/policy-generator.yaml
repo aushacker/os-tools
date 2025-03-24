@@ -7,7 +7,7 @@ policyDefaults:
   remediationAction: enforce
   placement:
     #placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
-    placementName: all                         # no Placement generated, must alreday exist
+    placementName: all                          # no Placement generated, must already exist
 policySetDefaults:
   generatePolicySetPlacement: false
 policies:
@@ -16,3 +16,16 @@ policies:
       - path: ldap/cm-ldap-ca.yaml
       - path: ldap/secret-bind-password.yaml
       - path: ldap/oauth-patch.yaml
+    policySets:
+      - dev
+      - prod
+policySets:
+  - name: all
+    placement:
+      placementName: all-clusters
+  - name: dev
+    placement:
+      placementName: dev-clusters
+  - name: prod
+    placement:
+      placementName: prod-clusters

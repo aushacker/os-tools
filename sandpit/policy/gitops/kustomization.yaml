@@ -4,4 +4,5 @@ kind: Kustomization
 namespace: openshift-gitops
 
 resources:
+  - application-clustersets.yaml
   - application-placement.yaml
