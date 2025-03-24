@@ -5,9 +5,15 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 rules:
-- apiGroups:
-    - cluster.open-cluster-management.io
-  resources:
-    - managedclustersets
-  verbs: 
-    - '*'
+  - apiGroups:
+      - cluster.open-cluster-management.io
+    resources:
+      - managedclustersets
+    verbs: 
+      - '*'
+  - apiGroups:
+      - cluster.open-cluster-management.io
+    resources:
+      - managedclustersets/bind
+    verbs:
+      - create
