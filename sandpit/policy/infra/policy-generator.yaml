@@ -17,7 +17,7 @@ policies:
 #    policySets:
 #      - dev
   - name: infra-logging
-    disabled: true
+    disabled: false
     manifests:
       - path: logging/
     policySets:
