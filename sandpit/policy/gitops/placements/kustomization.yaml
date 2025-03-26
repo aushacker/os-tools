@@ -8,8 +8,10 @@ resources:
   - place-default.yaml
   - place-dev.yaml
   - place-global.yaml
+  - place-hub.yaml
   - place-prod.yaml
   - mcsb-default.yaml
   - mcsb-dev.yaml
   - mcsb-global.yaml
+  - mcsb-hub.yaml
   - mcsb-prod.yaml

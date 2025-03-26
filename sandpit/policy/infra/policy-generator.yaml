@@ -11,27 +11,38 @@ policyDefaults:
     #placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
     placementName: dev-clusters                 # no Placement generated, must already exist
 policies:
-  - name: environment-config
-    manifests:
-      - path: config/dev/cm-environment.yaml
-    policySets:
-      - dev
-  - name: infra-oauth-ldap
+#  - name: environment-config
+#    manifests:
+#      - path: config/dev/
+#    policySets:
+#      - dev
+  - name: infra-logging
     disabled: true
     manifests:
-      - path: ldap/cm-ldap-ca.yaml
-      - path: ldap/secret-bind-password.yaml
-      - path: ldap/oauth-patch.yaml
+      - path: logging/
     policySets:
-      - dev
-      - prod
+      - default
+#  - name: infra-oauth-ldap
+#    disabled: true
+#    manifests:
+#      - path: ldap/
+#    policySets:
+#      - dev
+#      - prod
 policySets:
+  # All clusters
   - name: global
     placement:
       placementName: global-clusters
+  - name: default
+    placement:
+      placementName: default-clusters
   - name: dev
     placement:
       placementName: dev-clusters
+  - name: hub
+    placement:
+      placementName: hub-clusters
   - name: prod
     placement:
       placementName: prod-clusters
