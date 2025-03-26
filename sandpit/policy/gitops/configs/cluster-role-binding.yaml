@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 subjects:
   - kind: ServiceAccount
-    name: gitops-core-argocd-application-controller
+    name: gitops-core-argocd-application-controller # Caution: prefix must match ArgoCD instance name
     namespace: openshift-gitops
 roleRef:
   apiGroup: rbac.authorization.k8s.io
