@@ -78,6 +78,7 @@ spec:
       g, system:cluster-admins, role:admin
       g, cluster-admins, role:admin
     scopes: '[groups]'
+  kustomizeBuildOptions: --enable-alpha-plugins
   repo:
     env:
       - name: KUSTOMIZE_PLUGIN_HOME
