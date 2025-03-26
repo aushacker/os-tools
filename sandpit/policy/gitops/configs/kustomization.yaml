@@ -5,4 +5,5 @@ resources:
   - cluster-role.yaml
   - cluster-role-binding.yaml
   - clusterset-dev.yaml
+  - clusterset-hub.yaml
   - clusterset-prod.yaml
