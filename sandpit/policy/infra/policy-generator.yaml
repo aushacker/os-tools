@@ -2,14 +2,14 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
   name: config-infra-policies
+placementBindingDefaults:
+  name: placement-binding
 policyDefaults:
   namespace: policies
   remediationAction: enforce
   placement:
     #placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
     placementName: dev-clusters                 # no Placement generated, must already exist
-policySetDefaults:
-  generatePolicySetPlacement: false
 policies:
   - name: environment-config
     manifests:
@@ -26,7 +26,7 @@ policies:
       - dev
       - prod
 policySets:
-  - name: all
+  - name: global
     placement:
       placementName: global-clusters
   - name: dev
