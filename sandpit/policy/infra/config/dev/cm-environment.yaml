@@ -1,0 +1,11 @@
+object-templates-raw: |
+  {{/* ##  Gather all the managed clusters ## */}}
+  - complianceType: musthave
+    objectDefinition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: foo
+        namespace: policies
+      data:
+        FOO: bar

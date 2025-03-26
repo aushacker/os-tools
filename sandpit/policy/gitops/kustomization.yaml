@@ -6,3 +6,4 @@ namespace: openshift-gitops
 resources:
   - application-configs.yaml
   - application-placement.yaml
+  - application-policy-infra.yaml

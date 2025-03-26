@@ -7,11 +7,17 @@ policyDefaults:
   remediationAction: enforce
   placement:
     #placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
-    placementName: all                          # no Placement generated, must already exist
+    placementName: dev-clusters                 # no Placement generated, must already exist
 policySetDefaults:
   generatePolicySetPlacement: false
 policies:
+  - name: environment-config
+    manifests:
+      - path: config/dev/cm-environment.yaml
+    policySets:
+      - dev
   - name: infra-oauth-ldap
+    disabled: true
     manifests:
       - path: ldap/cm-ldap-ca.yaml
       - path: ldap/secret-bind-password.yaml
@@ -22,7 +28,7 @@ policies:
 policySets:
   - name: all
     placement:
-      placementName: all-clusters
+      placementName: global-clusters
   - name: dev
     placement:
       placementName: dev-clusters

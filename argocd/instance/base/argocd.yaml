@@ -79,6 +79,27 @@ spec:
       g, cluster-admins, role:admin
     scopes: '[groups]'
   repo:
+    env:
+      - name: KUSTOMIZE_PLUGIN_HOME
+        value: /etc/kustomize/plugin
+    initContainers:
+      - name: policy-generator-install
+        args:
+          - -c
+          - mkdir -p /.config/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator/ && cp /policy-generator/PolicyGenerator-not-fips-compliant /.config/kustomize/plugin/policy.open-cluster-management.io/v1/policygenerator/PolicyGenerator
+        command:
+          - /bin/bash
+        image: registry.redhat.io/rhacm2/multicluster-operators-subscription-rhel9:v2.12
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /.config
+            name: kustomize
+    volumeMounts:
+      - mountPath: /.config
+        name: kustomize
+    volumes:
+      - emptyDir: {}
+        name: kustomize
     resources:
       limits:
         cpu: '1'
