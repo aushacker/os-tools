@@ -1,9 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: policies
+
 resources:
-  - cluster-role.yaml
-  - cluster-role-binding.yaml
   - clusterset-dev.yaml
   - clusterset-hub.yaml
   - clusterset-prod.yaml
+  - mcsb-default.yaml
+  - mcsb-dev.yaml
+  - mcsb-global.yaml
+  - mcsb-hub.yaml
+  - mcsb-prod.yaml

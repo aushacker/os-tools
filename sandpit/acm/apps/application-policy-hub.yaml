@@ -1,17 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-configs
+  name: policy-infra
   namespace: default
 spec:
   project: default
   source:
     repoURL: https://github.com/aushacker/os-tools.git
     targetRevision: HEAD
-    path: sandpit/policy/gitops/configs
-  destination:
+    path: sandpit/acm/policy-hub
     server: https://kubernetes.default.svc
-    namespace: openshift-gitops
+    namespace: policies
   syncPolicy:
     automated:
       prune: true

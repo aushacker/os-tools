@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: openshift-gitops
 
 resources:
-  - application-configs.yaml
-  - application-placement.yaml
-  - application-policy-infra.yaml
+  - application-hub-bootstrap.yaml
+#  - application-placement.yaml
+#  - application-policy-infra.yaml

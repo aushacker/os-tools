@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: acm-root
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/aushacker/os-tools.git
+    targetRevision: HEAD
+    path: sandpit/acm/apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-gitops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - PruneLast=true
