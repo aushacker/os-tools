@@ -1,0 +1,8 @@
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  name: mshift2
+  labels:
+    cluster.open-cluster-management.io/clusterset: prod
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"

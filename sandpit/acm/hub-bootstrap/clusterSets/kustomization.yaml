@@ -12,3 +12,5 @@ resources:
   - mcsb-global.yaml
   - mcsb-hub.yaml
   - mcsb-prod.yaml
+  - cluster-mshift1.yaml
+  - cluster-mshift2.yaml

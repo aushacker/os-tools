@@ -17,3 +17,9 @@ rules:
       - managedclustersets/bind
     verbs:
       - create
+  - apiGroups:
+      - cluster.open-cluster-management.io
+    resources:
+      - managedclustersets/join
+    verbs:
+      - create
