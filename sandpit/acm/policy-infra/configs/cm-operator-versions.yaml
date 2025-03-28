@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: operator-versions
+  namespace: policies
+data:
+  local-cluster-openshift-logging: stable-6.1

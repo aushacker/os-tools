@@ -13,7 +13,7 @@ spec:
     targetNamespaces:
       - openshift-logging
   subscription:
-    channel: stable-6.1
+    channel: '{{hub fromConfigMap "" operator-versions (printf "%s-openshift-logging" .ManagedClusterName) hub}}'
     name: cluster-logging
     namespace: openshift-logging
     source: redhat-operators

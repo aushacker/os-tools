@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
-  name: acm-hub-policies
+  name: infra-policies
 placementBindingDefaults:
-  name: acm-hub-binding
+  name: infra-binding
 policyDefaults:
   namespace: policies
   remediationAction: enforce
@@ -11,10 +11,10 @@ policyDefaults:
     #placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
     placementName: dev-clusters                 # no Placement generated, must already exist
 policies:
-  - name: infra-logging
+  - name: infra-configs
     disabled: false
     manifests:
-      - path: logging/
+      - path: configs/
     policySets:
       - default
 policySets:
