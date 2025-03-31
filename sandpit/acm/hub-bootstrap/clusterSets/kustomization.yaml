@@ -4,6 +4,9 @@ kind: Kustomization
 namespace: policies
 
 resources:
+  - cluster-local-cluster.yaml
+  - cluster-mshift1.yaml
+  - cluster-mshift2.yaml
   - clusterset-dev.yaml
   - clusterset-hub.yaml
   - clusterset-prod.yaml
@@ -12,5 +15,3 @@ resources:
   - mcsb-global.yaml
   - mcsb-hub.yaml
   - mcsb-prod.yaml
-  - cluster-mshift1.yaml
-  - cluster-mshift2.yaml
