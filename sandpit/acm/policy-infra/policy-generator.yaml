@@ -16,7 +16,13 @@ policies:
     manifests:
       - path: configs/
     policySets:
-      - default
+      - hub
+  - name: authentication
+    disabled: false
+    manifests:
+      - path: oauth/
+    policySets:
+      - hub
 policySets:
   # All clusters
   - name: global
