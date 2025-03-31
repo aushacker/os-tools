@@ -5,5 +5,4 @@ namespace: openshift-gitops
 
 resources:
   - application-hub-bootstrap.yaml
-#  - application-placement.yaml
   - application-policy-infra.yaml
