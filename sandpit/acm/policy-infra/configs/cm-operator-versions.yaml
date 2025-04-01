@@ -5,4 +5,4 @@ metadata:
   namespace: policies
 data:
   local-cluster-openshift-logging: stable-6.1
-  uri: '{{ (lookup "v1" "DNS" "" "cluster").spec.baseDomain }}'
+  uri: '{{ (lookup "config.openshift.io/v1" "DNS" "" "cluster").spec.baseDomain }}'
