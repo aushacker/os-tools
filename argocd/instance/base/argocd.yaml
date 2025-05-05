@@ -37,6 +37,7 @@ spec:
         memory: 128Mi
     route:
       enabled: false
+  resourceTrackingMethod: annotation
   monitoring:
     enabled: false
   notifications:
