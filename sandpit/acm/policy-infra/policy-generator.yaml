@@ -1,3 +1,4 @@
+---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PolicyGenerator
 metadata:
@@ -8,35 +9,32 @@ policyDefaults:
   namespace: policies
   remediationAction: enforce
   placement:
-    #placementPath: ../placements/place-foo.yaml # includes manifest (i.e. copies)
-    placementName: dev-clusters                 # no Placement generated, must already exist
+    placementName: openshift-clusters                 # no Placement generated, must already exist
+  policySets:
+    - day2-operators
+
 policies:
-  - name: infra-configs
-    disabled: false
-    manifests:
-      - path: configs/
-    policySets:
-      - hub
-  - name: authentication
-    disabled: false
+  - name: authentication-htpasswd
+    description: |
+      Configures the cluster OAuth resource to use an HTpasswd identity provider.
     manifests:
       - path: oauth/
-    policySets:
-      - hub
+
+  - name: openshift-logging-install
+    description: |
+      Installs the openshift-logging operator.
+    manifests:
+      - path: logging/operator/
+ 
+  - name: openshift-logging-configuration
+    description: |
+      Configures the openshift-logging operator.
+    manifests:
+      - path: logging/instance/
+    dependencies:
+      - name: openshift-logging-install
+ 
 policySets:
-  # All clusters
-  - name: global
+  - name: day2-operators
     placement:
-      placementName: global-clusters
-  - name: default
-    placement:
-      placementName: default-clusters
-  - name: dev
-    placement:
-      placementName: dev-clusters
-  - name: hub
-    placement:
-      placementName: hub-clusters
-  - name: prod
-    placement:
-      placementName: prod-clusters
+      placementName: openshift-clusters

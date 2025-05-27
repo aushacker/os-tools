@@ -1,9 +1,8 @@
-kind: ClusterRoleBinding
+---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
-  name: collect-audit-logs
-  annotations:
-    argocd.argoproj.io/sync-wave: "3"
+  name: collect-application-logs
 subjects:
   - kind: ServiceAccount
     name: log-collector
@@ -11,4 +10,4 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: collect-audit-logs
+  name: collect-application-logs
