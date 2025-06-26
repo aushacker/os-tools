@@ -19,12 +19,3 @@ spec:
           name: thin-pool-1
           overprovisionRatio: 10
           sizePercent: 90
-      - name: local-ssd
-        deviceSelector:
-          paths:
-            - /dev/disk/by-path/pci-0000:01:03.0-scsi-0:0:0:2
-        fstype: xfs
-        thinPoolConfig:
-          name: thin-pool-2
-          overprovisionRatio: 10
-          sizePercent: 90
