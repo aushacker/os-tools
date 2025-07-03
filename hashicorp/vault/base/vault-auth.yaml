@@ -1,0 +1,13 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: vaultauth-webapp
+  namespace: vault
+spec:
+  kubernetes:
+    role: webapp
+    serviceAccount: vault
+    tokenExpirationSeconds: 600
+  method: kubernetes
+  mount: kubernetes
+  vaultConnectionRef: local-vault-connection
