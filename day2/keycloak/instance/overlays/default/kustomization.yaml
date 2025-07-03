@@ -6,3 +6,7 @@ namespace: keycloak
 
 resources:
   - ../../base
+
+components:
+  - ../../components/pgsql
+  - ../../components/openshift

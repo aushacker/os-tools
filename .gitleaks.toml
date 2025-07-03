@@ -3,6 +3,7 @@ description = "Global Allowlist"
 
 paths = [
   # Ignore test Secrets
+  '''day2\/keycloak\/instance\/components\/pgsql\/secret-pg.yaml$''',
   '''day2\/logging\/resources\/overlays\/stable-6.1\/secret-s3.yaml$''',
   '''day2\/minio\/overlays\/stable-test\/secret.yaml$''',
   '''graylog\/base\/secret-graylog.yaml$''',
