@@ -14,3 +14,6 @@ spec:
   #   hostname: test.keycloak.org
   # proxy:
   #   headers: xforwarded # double check your reverse proxy sets and overwrites the X-Forwarded-* headers
+  # additionalOptions:
+  #   - name: LOG_LEVEL
+  #     value: DEBUG
