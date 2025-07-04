@@ -3,6 +3,13 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgresql-db
+  labels:
+    app.kubernetes.io/name: postgresql
+    app.kubernetes.io/instance: postgresql-keycloak
+    app.kubernetes.io/version: '17'
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: keycloak
 spec:
   serviceName: postgresql-db-service
   selector:
