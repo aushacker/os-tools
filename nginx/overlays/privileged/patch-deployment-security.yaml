@@ -4,9 +4,9 @@ metadata:
   name: nginx
 spec:
   template:
-#    metadata:
-#      annotations:
-#        openshift.io/required-scc: anyuid
+    metadata:
+      annotations:
+        openshift.io/required-scc: anyuid
     spec:
       serviceAccountName: nginx-sa
       containers:

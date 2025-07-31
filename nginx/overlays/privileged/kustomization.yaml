@@ -6,6 +6,7 @@ namespace: nginx-priv
 resources:
   - ../../base
   - service-account.yaml
+  - role-scc-anyuid.yaml
   - role-binding.yaml
 
 images:
