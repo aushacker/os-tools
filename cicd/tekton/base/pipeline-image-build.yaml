@@ -1,0 +1,92 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: image-build-and-push
+  annotations:
+    description: Build an image from a Dockerfile/Containerfile in Git and push it to a container registry.
+spec:
+  workspaces:
+    - name: shared-workspace
+      description: Shared between all tasks, contains source code fromm Git. A VolumeClaimTemplate is recomended.
+    - name: dockerconfig
+      description: |
+        An optional workspace that allows providing a .docker/config.json file for Buildah to access the container registry.
+        The file should be placed at the root of the Workspace with name config.json or .dockerconfigjson.
+        A Secret is recommended.
+      optional: true
+  params:
+    - name: git-url
+      type: string
+      description: Git repository URL.
+    - name: git-revision
+      type: string
+      default: main
+      description: Revision to checkout, a branch, tag, sha, ref, etc...
+    - name: context-dir
+      type: string
+      default: ''
+      description: Relative path from git repo root to container build directory.
+    - name: dockerfile
+      type: string
+      default: Dockerfile
+      description: Name of the Dockerfile (Containerfile).
+    - name: image
+      type: string
+      description: Image to be built from the code e.g. registry/repository/image:tag
+  tasks:
+    - name: git-clone
+      params:
+        - name: URL
+          value: $(params.git-url)
+        - name: REVISION
+          value: $(params.git-revision)
+        - name: DELETE_EXISTING
+          value: 'true'
+      taskRef:
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: git-clone
+          - name: namespace
+            value: openshift-pipelines
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    # - name: debug
+    #   taskSpec:
+    #     steps:
+    #       - image: 'registry.redhat.io/ubi9-minimal:latest'
+    #         script: |
+    #           ls -al /workspace/source
+    #   workspaces:
+    #     - name: source
+    #       workspace: shared-workspace
+    #   runAfter:
+    #     - git-clone
+    - name: build-image
+      taskRef:
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: buildah
+          - name: namespace
+            value: openshift-pipelines
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+        - name: dockerconfig
+          workspace: dockerconfig
+          optional: true
+      params:
+        - name: IMAGE
+          value: $(params.image)
+        - name: CONTEXT
+          value: $(params.context-dir)
+        - name: DOCKERFILE
+          value: $(params.context-dir)/$(params.dockerfile)
+      runAfter:
+        - git-clone
