@@ -1,0 +1,5 @@
+FROM docker.io/library/alpine:3
+
+COPY ./hello.sh .
+
+ENTRYPOINT [ "/bin/bash", "-c", "./hello.sh" ]
