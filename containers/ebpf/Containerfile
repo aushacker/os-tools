@@ -1,0 +1,6 @@
+FROM registry.access.redhat.com/ubi9-minimal
+
+RUN dnf install -y --setopt=tsflags=nodocs iputils bcc-tools --exclude container-selinux && \
+    dnf clean all
+
+ENTRYPOINT [ "/bin/sh", "-c", "sleep infinity" ]
