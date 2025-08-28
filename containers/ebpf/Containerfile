@@ -1,6 +1,6 @@
-FROM registry.access.redhat.com/ubi9-minimal
+FROM quay.io/centos/centos:stream9-minimal
 
-RUN dnf install -y --setopt=tsflags=nodocs iputils bcc-tools --exclude container-selinux && \
-    dnf clean all
+RUN microdnf install -y --setopt=tsflags=nodocs iputils bcc-tools bpftool && \
+    microdnf clean all
 
 ENTRYPOINT [ "/bin/sh", "-c", "sleep infinity" ]
