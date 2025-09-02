@@ -1,0 +1,114 @@
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: bridge-m0
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master0.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: up
+      - name: br1
+        description: Linux bridge with eth1 as a port with custom vlan configuration
+        type: linux-bridge
+        state: up
+        ipv4:
+          dhcp: false
+          enabled: false
+        ipv6:
+          dhcp: false
+          enabled: false
+        bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+            - name: ens19
+              vlan:
+                mode: trunk
+                trunk-tags:
+                  - id: 27
+                  - id-range:
+                      min: 1
+                      max: 20
+                tag: 42
+                enable-native: true
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: bridge-m1
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master1.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: up
+      - name: br1
+        description: Linux bridge with eth1 as a port with custom vlan configuration
+        type: linux-bridge
+        state: up
+        ipv4:
+          dhcp: false
+          enabled: false
+        ipv6:
+          dhcp: false
+          enabled: false
+        bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+            - name: ens19
+              vlan:
+                mode: trunk
+                trunk-tags:
+                  - id: 27
+                  - id-range:
+                      min: 1
+                      max: 20
+                tag: 42
+                enable-native: true
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: bridge-m2
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master2.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: up
+      - name: br1
+        description: Linux bridge with eth1 as a port with custom vlan configuration
+        type: linux-bridge
+        state: up
+        ipv4:
+          dhcp: false
+          enabled: false
+        ipv6:
+          dhcp: false
+          enabled: false
+        bridge:
+          options:
+            stp:
+              enabled: false
+          port:
+            - name: ens19
+              vlan:
+                mode: trunk
+                trunk-tags:
+                  - id: 27
+                  - id-range:
+                      min: 1
+                      max: 20
+                tag: 42
+                enable-native: true

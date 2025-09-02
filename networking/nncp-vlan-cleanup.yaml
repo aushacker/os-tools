@@ -1,0 +1,48 @@
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: vlan-m0
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master0.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: absent
+      - name: vlan10
+        type: vlan
+        state: absent
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: vlan-m1
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master1.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: absent
+      - name: vlan10
+        type: vlan
+        state: absent
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: vlan-m2
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master2.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: absent
+      - name: vlan10
+        type: vlan
+        state: absent

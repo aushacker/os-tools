@@ -1,0 +1,16 @@
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: bridge-m0
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master0.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: up
+      - name: br1
+        type: linux-bridge
+        state: absent

@@ -1,0 +1,20 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: master0-ens19
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: master0.lab.home.arpa
+  desiredState:
+    interfaces:
+      - name: ens19
+        type: ethernet
+        state: up
+        ipv4:
+          address:
+            - ip: 192.168.42.200
+              prefix-length: 24
+          dhcp: false
+          enabled: true
+        ipv6:
+          enabled: false
