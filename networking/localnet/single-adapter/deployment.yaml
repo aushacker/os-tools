@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dual-vlan
+  namespace: aaa
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dual-vlan
+  template:
+    metadata:
+      labels:
+        app: dual-vlan
+      annotations:
+        k8s.v1.cni.cncf.io/networks: localnet1
+    spec:
+      containers:
+        - name: dual-vlan
+          image: registry.redhat.io/openshift4/network-tools-rhel9
+          command:
+            - /bin/bash
+            - '-c'
+            - sleep infinity
+          imagePullPolicy: Always
