@@ -22,9 +22,11 @@ spec:
     spec:
       domain:
         devices:
-          filesystems:
-            - name: ca-config-fs
-              virtiofs: {}
+          disks:
+            - disk:
+                bus: virtio
+              name: ca-config-disk
+              serial: CACONFIG01
       volumes:
         - dataVolume:
             name: vm-root-volume
@@ -38,10 +40,12 @@ spec:
                 expire: false
               bootcmd:
                 # mount the ConfigMap
-                - "sudo mkdir /mnt/ca-config"
-                - "sudo mount -t virtiofs ca-config-fs /mnt/ca-config"
-              runcmd: [ echo "it worked!" > /tmp/example.txt ]
+                - sudo mkdir /mnt/ca-config
+                - sudo mount -r /dev/$(lsblk --nodeps -no name,serial | grep CACONFIG01 | cut -f1 -d' ') /mnt/ca-config
+                # update the VMs CA trust base
+                - sudo cp /mnt/ca-config/ca-bundle.crt /etc/pki/ca-trust/source/anchors
+                - sudo update-ca-trust
           name: cloudinitdisk
         - configMap:
             name: user-ca-bundle
-          name: ca-config-fs
+          name: ca-config-disk
