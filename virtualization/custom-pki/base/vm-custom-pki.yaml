@@ -1,0 +1,47 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: vm-custom-pki
+spec:
+  dataVolumeTemplates:
+    - metadata:
+        name: vm-root-volume
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel9
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources: {}
+  instancetype:
+    name: u1.small
+  preference:
+    name: rhel.9
+  runStrategy: Always
+  template:
+    spec:
+      domain:
+        devices:
+          filesystems:
+            - name: ca-config-fs
+              virtiofs: {}
+      volumes:
+        - dataVolume:
+            name: vm-root-volume
+          name: rootdisk
+        - cloudInitNoCloud: 
+            userData: |-
+              #cloud-config
+              user: cloud-user
+              password: redhat123
+              chpasswd:
+                expire: false
+              bootcmd:
+                # mount the ConfigMap
+                - "sudo mkdir /mnt/ca-config"
+                - "sudo mount -t virtiofs ca-config-fs /mnt/ca-config"
+              runcmd: [ echo "it worked!" > /tmp/example.txt ]
+          name: cloudinitdisk
+        - configMap:
+            name: user-ca-bundle
+          name: ca-config-fs
