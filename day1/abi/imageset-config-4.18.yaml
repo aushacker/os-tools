@@ -1,0 +1,96 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v2alpha1
+mirror:
+  platform:
+    architectures:
+      - amd64
+    channels:
+      - name: eus-4.18
+        minVersion: 4.18.23
+        maxVersion: 4.18.23
+        shortestPath: true
+        type: ocp
+    graph: true
+  operators:
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.18
+      packages:
+        - name: advanced-cluster-management
+          channels:
+            - name: release-2.14
+              minVersion: '2.14.0'
+        - name: ansible-automation-platform-operator
+          channels:
+            - name: stable-2.5
+              minVersion: '2.5.0-0.1755835086'
+            # - name: stable-2.5-cluster-scoped
+            #   minVersion: '2.5.0-0.1755835623'
+        - name: cincinnati-operator
+          channels:
+            - name: v1
+              minVersion: '5.0.3'
+        - name: cluster-logging
+          channels:
+            - name: stable-6.3
+              minVersion: '6.3.1'
+        - name: cluster-observability-operator
+          channels:
+            - name: stable
+              minVersion: '1.2.2'
+        - name: compliance-operator
+          channels:
+            - name: stable
+              minVersion: '1.7.1'
+        - name: kubernetes-nmstate-operator
+          channels:
+            - name: stable
+              minVersion: '4.18.0-202509101149'
+        - name: metallb-operator
+          channels:
+            - name: stable
+              minVersion: '4.18.0-202509100344'
+        - name: multicluster-engine
+          channels:
+            - name: stable-2.9
+              minVersion: '2.9.0'
+        - name: odr-cluster-operator
+          channels:
+            - name: stable-4.18
+              minVersion: '4.18.10-rhodf'
+        - name: openshift-gitops-operator
+          channels:
+            - name: latest
+              minVersion: '1.17.1'
+        - name: openshift-pipelines-operator-rh
+          channels:
+            - name: latest
+              minVersion: '1.19.3'
+        - name: redhat-oadp-operator
+          channels:
+            - name: stable-1.4
+              minVersion: '1.4.5'
+        - name: rhacs-operator
+          channels:
+            - name: stable
+              minVersion: '4.8.4'
+    - catalog: registry.redhat.io/redhat/certified-operator-index:v4.18
+      packages:
+        - name: vault-secrets-operator
+          channels:
+            - name: stable
+              minVersion: '0.10.0'
+  additionalImages:
+    # Tag or digest required by oc-mirror --v2
+    - name: registry.redhat.io/ubi8/ubi-micro:latest
+    - name: registry.redhat.io/ubi8/ubi-minimal:latest
+    - name: registry.redhat.io/ubi8/ubi:latest
+    - name: registry.redhat.io/ubi8/ubi-init:latest
+    - name: registry.redhat.io/ubi9/ubi-micro:latest
+    - name: registry.redhat.io/ubi9/ubi-minimal:latest
+    - name: registry.redhat.io/ubi9/ubi:latest
+    - name: registry.redhat.io/ubi9/ubi-init:latest
+    - name: registry.redhat.io/ubi10/ubi-micro:latest
+    - name: registry.redhat.io/ubi10/ubi-minimal:latest
+    - name: registry.redhat.io/ubi10/ubi:latest
+    - name: registry.redhat.io/ubi10/ubi-init:latest
+    - name: registry.redhat.io/openshift4/ose-cli:latest
+  helm: {}
