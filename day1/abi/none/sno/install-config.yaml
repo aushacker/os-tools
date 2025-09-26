@@ -1,0 +1,39 @@
+apiVersion: v1
+baseDomain: ocp.lan
+compute:
+- architecture: amd64
+  name: worker
+  hyperthreading: Enabled
+  replicas: 0
+controlPlane:
+  architecture: amd64
+  name: master
+  hyperthreading: Enabled
+  replicas: 1
+metadata:
+  name: sno # Cluster name
+networking:
+  clusterNetwork:
+    - cidr: 10.128.0.0/14 # OpenShift internal addresses, not visible outside the cluster (overlay network)
+      hostPrefix: 23
+  machineNetwork:
+    - cidr: x.x.x.x/24    # External node addresses, visible outside the cluster (underlay network)
+  networkType: OVNKubernetes
+  serviceNetwork:
+    - 172.30.0.0/16       # OpenShift internal addresses, not visible outside the cluster (load balancers)
+platform:
+  none: {}
+fips: false
+pullSecret: '{"auths":{ ... }}'
+sshKey: 'ssh-ed25519 ...'
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  -----END CERTIFICATE-----
+imageDigestSources:
+# Cut & paste from imageContentSourcePolicy.yaml
+  - mirrors:
+    - <mirrorUrl>:<port>/<repo>/openshift/release
+    source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+  - mirrors:
+    - <mirrorUrl>:<port>/<repo>/openshift/release-images
+    source: quay.io/openshift-release-dev/ocp-release

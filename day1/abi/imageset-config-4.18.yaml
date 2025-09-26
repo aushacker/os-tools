@@ -6,8 +6,8 @@ mirror:
       - amd64
     channels:
       - name: eus-4.18
-        minVersion: 4.18.23
-        maxVersion: 4.18.23
+        minVersion: 4.18.24
+        maxVersion: 4.18.24
         shortestPath: true
         type: ocp
     graph: true
@@ -24,7 +24,7 @@ mirror:
               minVersion: '2.5.0-0.1755835086'
             # - name: stable-2.5-cluster-scoped
             #   minVersion: '2.5.0-0.1755835623'
-        - name: cincinnati-operator
+        - name: cincinnati-operator # OpenShift Update Service
           channels:
             - name: v1
               minVersion: '5.0.3'
@@ -52,6 +52,10 @@ mirror:
           channels:
             - name: stable-2.9
               minVersion: '2.9.0'
+        - name: nfd # Node feature discovery operator
+          channels:
+            - name: stable
+              minVersion: '4.18.0-202509100344'
         - name: odr-cluster-operator
           channels:
             - name: stable-4.18
@@ -74,6 +78,10 @@ mirror:
               minVersion: '4.8.4'
     - catalog: registry.redhat.io/redhat/certified-operator-index:v4.18
       packages:
+        - name: gpu-operator-certified
+          channels:
+            - name: v25.3
+              minVersion: '25.3.4'
         - name: vault-secrets-operator
           channels:
             - name: stable
