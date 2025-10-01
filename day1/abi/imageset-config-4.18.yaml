@@ -18,10 +18,10 @@ mirror:
           channels:
             - name: release-2.14
               minVersion: '2.14.0'
-        - name: ansible-automation-platform-operator
-          channels:
-            - name: stable-2.5
-              minVersion: '2.5.0-0.1755835086'
+        # - name: ansible-automation-platform-operator
+        #   channels:
+        #     - name: stable-2.5
+        #       minVersion: '2.5.0-0.1755835086'
             # - name: stable-2.5-cluster-scoped
             #   minVersion: '2.5.0-0.1755835623'
         - name: cephcsi-operator
@@ -96,10 +96,14 @@ mirror:
           channels:
             - name: stable-4.18
               minVersion: '4.18.11-rhodf'
-        # - name: odr-cluster-operator
-        #   channels:
-        #     - name: stable-4.18
-        #       minVersion: '4.18.10-rhodf'
+        - name: odr-cluster-operator
+          channels:
+            - name: stable-4.18
+              minVersion: '4.18.11-rhodf'
+        - name: odr-hub-operator
+          channels:
+            - name: stable-4.18
+              minVersion: '4.18.11-rhodf'
         - name: openshift-gitops-operator
           channels:
             - name: latest

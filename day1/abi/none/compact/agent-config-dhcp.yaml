@@ -1,0 +1,40 @@
+apiVersion: v1beta1
+kind: AgentConfig
+metadata:
+  name: lab
+rendezvousIP: x.x.x.1
+#bootArtifactsBaseURL: http://user-specified-infra.com
+#additionalNTPSources:
+#- 0.rhel.pool.ntp.org
+#- 1.rhel.pool.ntp.org
+hosts:
+- hostname: master0
+  role: master
+  # For more information about rootDeviceHints:
+  # https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal_ipi/ipi-install-installation-workflow.html#root-device-hints_ipi-install-installation-workflow
+  #rootDeviceHints:
+  #  deviceName: /dev/sda
+  # interfaces are used to identify the host to apply this configuration to
+  interfaces:
+    - macAddress: 00:00:00:00:00:00
+      name: ens18
+- hostname: master1
+  role: master
+  # For more information about rootDeviceHints:
+  # https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal_ipi/ipi-install-installation-workflow.html#root-device-hints_ipi-install-installation-workflow
+  #rootDeviceHints:
+  #  deviceName: /dev/sda
+  # interfaces are used to identify the host to apply this configuration to
+  interfaces:
+    - macAddress: 00:00:00:00:00:01
+      name: ens18
+- hostname: master2
+  role: master
+  # For more information about rootDeviceHints:
+  # https://docs.openshift.com/container-platform/4.10/installing/installing_bare_metal_ipi/ipi-install-installation-workflow.html#root-device-hints_ipi-install-installation-workflow
+  #rootDeviceHints:
+  #  deviceName: /dev/sda
+  # interfaces are used to identify the host to apply this configuration to
+  interfaces:
+    - macAddress: 00:00:00:00:00:02
+      name: ens18
