@@ -1,0 +1,16 @@
+---
+# Credit to John Call - https://hackmd.io/@johnsimcall/S1_fuwzyA
+variant: openshift
+version: 4.18.0
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master  # for Single Node OpenShift (SNO) and 3-node compact clusters
+    #machineconfiguration.openshift.io/role: worker  # only for clusters with dedicated workers
+  name: 98-lvmstorage-partition
+storage:
+  disks:
+  - device: /dev/sda     # adjust as necessary
+    partitions:
+    - label: lvmstorage  # applying a label to the partition allows us to use nice names like /dev/disk/by-partlabel/lvmstorage instead of /dev/nvme0n1p3 
+      start_mib: 150000  # let CoreOS use the first 150GB (minimum 25000 MiB, recommend 120000 MiB or more)
+      size_mib:  0       # any size, or "0" to use the rest of the disk
