@@ -56,6 +56,10 @@ mirror:
           channels:
             - name: stable
               minVersion: '4.18.0-202509100344'
+        - name: lvms-operator
+          channels:
+            - name: stable-4.18
+              minVersion: '4.18.3'
         - name: metallb-operator
           channels:
             - name: stable
@@ -140,6 +144,9 @@ mirror:
               minVersion: '0.10.0'
   additionalImages:
     # Tag or digest required by oc-mirror --v2
+    - name: registry.redhat.io/odf4/odf-must-gather-rhel9:v4.18
+    - name: registry.redhat.io/openshift4/ose-cli:latest
+    - name: registry.redhat.io/rhel9/support-tools:latest
     - name: registry.redhat.io/ubi8/ubi-micro:latest
     - name: registry.redhat.io/ubi8/ubi-minimal:latest
     - name: registry.redhat.io/ubi8/ubi:latest
@@ -152,5 +159,4 @@ mirror:
     - name: registry.redhat.io/ubi10/ubi-minimal:latest
     - name: registry.redhat.io/ubi10/ubi:latest
     - name: registry.redhat.io/ubi10/ubi-init:latest
-    - name: registry.redhat.io/openshift4/ose-cli:latest
   helm: {}
