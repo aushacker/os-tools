@@ -32,14 +32,14 @@ spec:
             httpGet:
               path: /index.html
               port: 8080
-              initialDelaySeconds: 3
-              periodSeconds: 3
+            initialDelaySeconds: 3
+            periodSeconds: 3
           readinessProbe:
             httpGet:
               path: /index.html
               port: 8080
-              initialDelaySeconds: 3
-              periodSeconds: 3
+            initialDelaySeconds: 3
+            periodSeconds: 3
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
