@@ -9,6 +9,9 @@ resources:
   - role-scc-anyuid.yaml
   - role-binding.yaml
 
+components:
+  - ../../components/openshift
+
 images:
   - name: nginx
     newName: nginx

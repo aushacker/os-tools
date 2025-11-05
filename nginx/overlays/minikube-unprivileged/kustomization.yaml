@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: nginx-unpriv
+
+resources:
+  - ../../base
+
+components:
+  - ../../components/unprivileged
+
+images:
+  - name: nginx
+    newName: nginxinc/nginx-unprivileged
+    newTag: stable

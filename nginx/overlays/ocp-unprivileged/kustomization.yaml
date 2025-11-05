@@ -6,10 +6,11 @@ namespace: nginx-unpriv
 resources:
   - ../../base
 
+components:
+  - ../../components/openshift
+  - ../../components/unprivileged
+
 images:
   - name: nginx
     newName: nginxinc/nginx-unprivileged
     newTag: stable
-
-patches:
-  - path: patch-deployment-ports.yaml
