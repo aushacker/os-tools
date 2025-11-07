@@ -3,3 +3,13 @@ kind: Component
 
 resources:
   - ingress.yaml
+
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Service
+      name: nginx
+    patch: |-
+      - op: replace
+        path: /spec/ports/0/port
+        value: 8080
