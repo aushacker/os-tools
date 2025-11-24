@@ -1,0 +1,69 @@
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb
+  namespace: default
+spec:
+  port: 3306
+  rootPasswordSecretKeyRef:
+    generate: true
+    key: password
+    name: mariadb
+  serviceAccountName: mariadb
+  metrics:
+    enabled: true
+    exporter:
+      image: 'prom/mysqld-exporter:v0.15.1'
+      port: 9104
+    passwordSecretKeyRef:
+      generate: true
+      key: password
+      name: mariadb-metrics-password
+    username: mariadb-metrics
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 300m
+      memory: 128Mi
+  rootEmptyPassword: false
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    innodb_buffer_pool_size=1600M
+    max_allowed_packet=256M
+  replicasAllowEvenNumber: false
+  service:
+    type: ClusterIP
+  username: mariadb
+  tls:
+    enabled: true
+  image: 'docker-registry1.mariadb.com/library/mariadb:11.8.2'
+  database: mariadb
+  storage:
+    ephemeral: false
+    resizeInUseVolumes: true
+    size: 1Gi
+    volumeClaimTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+    waitForVolumeResize: true
+  replicas: 1
+  suspend: false
+  updateStrategy:
+    autoUpdateDataPlane: false
+    type: ReplicasFirstPrimaryLast
+  myCnfConfigMapKeyRef:
+    key: my.cnf
+    name: mariadb-config
+  passwordSecretKeyRef:
+    generate: true
+    key: password
+    name: mariadb-password

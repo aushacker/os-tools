@@ -1,0 +1,19 @@
+---
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Grant
+metadata:
+  name: myuser
+  namespace: default
+spec:
+  privileges:
+    - ALL PRIVILEGES
+  requeueInterval: 30s
+  host: '%'
+  retryInterval: 5s
+  table: '*'
+  grantOption: false
+  username: myuser
+  database: mariadb
+  mariaDbRef:
+    name: mariadb
+    waitForIt: true
