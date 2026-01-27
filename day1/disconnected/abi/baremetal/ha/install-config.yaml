@@ -1,10 +1,10 @@
 apiVersion: v1
 baseDomain: ocp.lan
 compute:
-- architecture: amd64
-  name: worker
-  hyperthreading: Enabled
-  replicas: 2
+  - architecture: amd64
+    name: worker
+    hyperthreading: Enabled
+    replicas: 2
 controlPlane:
   architecture: amd64
   name: master
@@ -24,9 +24,9 @@ networking:
 platform:
   baremetal:
     apiVIPs:
-    - x.x.x.x
+      - x.x.x.x
     ingressVIPs:
-    - x.x.x.x
+      - x.x.x.x
 fips: false
 pullSecret: '{"auths":{ ... }}'
 sshKey: 'ssh-ed25519 ...'
