@@ -1,0 +1,36 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v2alpha1
+mirror:
+  platform:
+    architectures:
+      - amd64
+    channels:
+      - name: stable-4.20
+        minVersion: 4.20.11
+        maxVersion: 4.20.11
+        shortestPath: true
+        type: ocp
+    graph: true
+  operators:
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.20
+      packages:
+        - name: cluster-logging
+        - name: compliance-operator
+        - name: kubernetes-nmstate-operator
+        - name: kubevirt-hyperconverged
+        - name: local-storage-operator
+        - name: lvms-operator
+        - name: metallb-operator
+        - name: openshift-gitops-operator
+        - name: openshift-pipelines-operator-rh
+        - name: redhat-oadp-operator
+    - catalog: registry.redhat.io/redhat/certified-operator-index:v4.20
+      packages:
+        - name: vault-secrets-operator
+  additionalImages:
+    # Tag or digest required by oc-mirror --v2
+    - name: registry.redhat.io/openshift4/ose-cli:latest
+    - name: registry.redhat.io/rhel9/support-tools:latest
+    - name: registry.redhat.io/ubi9/ubi:latest
+    - name: registry.redhat.io/ubi10/ubi:latest
+  helm: {}
