@@ -27,6 +27,15 @@ platform:
       - x.x.x.x
     ingressVIPs:
       - x.x.x.x
+    provisioningNetwork: Disabled
+    hosts:
+      - name: master0
+        bootMACAddress: 00:00:00:00:00:00
+        bmc:
+          username: CHANGE_ME
+          password: CHANGE_ME
+          address: redfish+http://10.10.10.1:8000/redfish/v1/Systems/1234
+          disableCertificateVerification: False
 fips: false
 pullSecret: '{"auths":{ ... }}'
 sshKey: 'ssh-ed25519 ...'
